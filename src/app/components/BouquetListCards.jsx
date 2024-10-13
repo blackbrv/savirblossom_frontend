@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 import flower1 from "../assets/images/png/30k.png";
 import AmmountCompo from "./AmmountCompo";
-import ImagesWLens from "./ImagesWLens";
 
 const BouquetListCards = () => {
   return (

@@ -9,8 +9,6 @@ const AmmountCompo = ({
   inputSize = "w-6 h-5",
 }) => {
   const [amount, setAmount] = useState(total);
-  const holdIncrement = useRef(null);
-  const holdDecrement = useRef(null);
 
   const increment = () => {
     if (amount < 999) {

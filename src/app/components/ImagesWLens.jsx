@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Lens } from "./ui/lens";
-import { motion } from "framer-motion";
-import { cn } from "@/app/lib/utils";
 
 const ImagesWLens = ({
   where,
@@ -11,7 +9,6 @@ const ImagesWLens = ({
   altImgName = "Savirblossom",
   cusRounded,
 }) => {
-  const [hovering, setHovering] = useState(false);
   return (
     <>
       <div className={className}>
