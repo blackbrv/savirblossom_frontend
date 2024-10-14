@@ -50,7 +50,7 @@ const Footer = () => {
               className="flex items-center gap-3"
             >
               <WhatsappLogo />
-              <h1 className="text-lg mb-0 text-center">+62 895-3867-88885</h1>
+              <h1 className="text-lg mb-0 text-center">+62 812-8221-3266</h1>
             </a>
           </div>
         </div>
