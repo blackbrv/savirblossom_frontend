@@ -1,26 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+body,
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Lato";
+  --font-avenir: "Avenir Next Condensed", sans-serif;
+  --font-libre: "Libre Franklin", sans-serif;
+
+  --color-primary: #00a8ab;
+  --color-primary-500: #00a8ab;
+  --color-secondary: #006367;
+  --color-translucent-primary: #e0f5f5;
+  --color-secondary-500: #006367;
+  --color-dark-gray: #111729;
+  --color-light-gray: #f1f4f8;
+
+  --color-grayscale-50: #f8fafc;
+  --color-grayscale-100: #f1f4f8;
+  --color-grayscale-200: #e3e8ef;
+  --color-grayscale-400: #97a3b6;
+  --color-grayscale-600: #4a5567;
+  --color-grayscale-900: #111729;
+
+  --color-danger-500: #df1c41;
+
+  --color-warning-400: #ffbe4c;
+
+  --heading: 64px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.desktop-tablet__heading__h1 {
+  @apply font-avenir text-4xl leading-[120%] font-normal tracking-[0%] md:text-5xl lg:text-7xl;
+}
+
+.desktop-tablet__heading__h2 {
+  @apply font-avenir text-3xl leading-[120%] font-medium tracking-[0%] md:text-4xl lg:text-5xl;
+}
+
+.desktop-tablet__heading__h3 {
+  @apply font-avenir text-3xl leading-[120%] font-normal tracking-[0%] md:text-4xl lg:text-[40px];
+}
+
+.desktop-tablet__heading__h4 {
+  @apply font-avenir text-xl leading-[120%] font-normal tracking-[0%] md:text-2xl lg:text-[32px];
+}
+
+.desktop-tablet__heading__h5 {
+  @apply font-avenir text-lg leading-[120%] font-normal tracking-[0%] md:text-xl lg:text-2xl;
+}
+
+.desktop-tablet__body-xlarge__semibold {
+  @apply font-sans text-sm leading-[160%] font-medium tracking-[0%] md:text-base lg:text-lg;
+}
+
+.desktop-tablet__body-xlarge__medium {
+  @apply font-sans text-sm leading-[160%] font-normal tracking-[0%] md:text-base lg:text-lg;
+}
+
+.desktop-tablet__body-xlarge__regular {
+  @apply font-sans text-sm leading-[160%] font-light tracking-[0%] md:text-base lg:text-lg;
+}
+
+.desktop-tablet__body-large__semibold {
+  @apply font-sans text-base leading-[150%] font-medium -tracking-[1%];
+}
+
+.desktop-tablet__body-large__medium {
+  @apply font-sans text-base leading-[150%] font-normal -tracking-[1%];
+}
+
+.desktop-tablet__body-large__regular {
+  @apply font-sans text-base leading-[150%] font-light;
+}
+
+.desktop-tablet__body-medium__semibold {
+  @apply font-sans text-sm leading-[150%] font-medium tracking-[1%];
+}
+
+.desktop-tablet__body-medium__medium {
+  @apply font-sans text-sm leading-[150%] font-normal tracking-[1%];
+}
+
+.desktop-tablet__body-medium__regular {
+  @apply font-sans text-sm leading-[150%] font-light tracking-[1%];
+}
+
+.desktop-tablet__body-small__medium {
+  @apply font-sans text-xs leading-[150%] font-normal tracking-[1%];
+}
+
+.desktop-tablet__body-small__regular {
+  @apply font-sans text-xs leading-[150%] font-light tracking-[1%];
+}
+
+@utility container {
+  width: 100%;
+  @media (width >= 40rem) {
+    max-width: 40rem;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @media (width >= 48rem) {
+    max-width: 48rem;
+  }
+  @media (width >= 64rem) {
+    max-width: 64rem;
+  }
+  @media (width >= 72rem) {
+    max-width: 75rem;
+  }
 }
