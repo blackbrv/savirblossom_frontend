@@ -9,14 +9,14 @@ html {
 }
 
 @theme {
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "Lexend", sans-serif;
   --font-heading: "Lato";
   --font-avenir: "Avenir Next Condensed", sans-serif;
   --font-libre: "Libre Franklin", sans-serif;
 
-  --color-primary: #00a8ab;
-  --color-primary-500: #00a8ab;
-  --color-secondary: #006367;
+  --color-primary: #131313;
+  --color-primary-500: #131313;
+  --color-secondary: #131313;
   --color-translucent-primary: #e0f5f5;
   --color-secondary-500: #006367;
   --color-dark-gray: #111729;
