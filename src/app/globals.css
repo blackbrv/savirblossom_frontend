@@ -11,7 +11,7 @@ html {
 @theme {
   --font-sans: "Lexend", sans-serif;
   --font-heading: "Lato";
-  --font-avenir: "Avenir Next Condensed", sans-serif;
+  --font-avenir: "Lexend", sans-serif;
   --font-libre: "Libre Franklin", sans-serif;
 
   --color-primary: #131313;
@@ -114,4 +114,15 @@ html {
   @media (width >= 72rem) {
     max-width: 75rem;
   }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

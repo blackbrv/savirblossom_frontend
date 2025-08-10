@@ -23,7 +23,7 @@ const UserActionButtonWrapper = ({
   return (
     <button
       className={cn(
-        "flex min-w-5 min-h-5 hover:text-white items-center justify-center text-black  bg-black/10 hover:bg-black transition-all rounded-full p-2 hover:cursor-pointer",
+        "flex min-w-5 min-h-5 hover:text-white items-center justify-center text-black  bg-black/10 hover:bg-black transition-all rounded-full p-2 hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-danger-500 duration-300",
         className,
       )}
       {...rest}
@@ -43,6 +43,7 @@ export default function Navbar({ className }: NavbarProps) {
     >
       <Link
         href={"/"}
+        className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-danger-500 transition-all duration-300"
         aria-label="Home"
         data-aos="fade-right"
         data-aos-once="true"
@@ -63,7 +64,7 @@ export default function Navbar({ className }: NavbarProps) {
           <Link
             href={nav.href}
             key={index}
-            className="desktop-tablet__body-large__medium flex p-1 items-center text-black hover:text-danger-500"
+            className="desktop-tablet__body-large__medium flex p-1 items-center text-black hover:text-danger-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-danger-500 transition-all duration-300"
           >
             {nav.label}
           </Link>

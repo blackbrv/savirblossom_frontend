@@ -7,10 +7,13 @@ import {
 } from "lucide-react";
 import React from "react";
 import { StaticImageData } from "next/image";
+
 import FlowerCols01 from "@/assets/flower-cols-01.png";
 import FlowerCols02 from "@/assets/flower-cols-02.png";
 import FlowerCols03 from "@/assets/flower-cols-03.png";
 import FlowerCols04 from "@/assets/flower-cols-04.png";
+
+import FloweerBouquetList01 from "@/assets/flower-bouquet-list-01.png";
 
 interface NavbarListItemProps {
   label: string;
@@ -80,5 +83,103 @@ export const HomeGridContent: HomeGridContentProps[] = [
     subTitle: "Always New",
     title: "New Arrivals",
     image: FlowerCols04,
+  },
+];
+
+interface BouquetListTypes {
+  id: number;
+  image: string | StaticImageData;
+  product_name: string;
+  price: string;
+  currency: string;
+  is_new_arrival: boolean;
+}
+
+export const BouquetList: BouquetListTypes[] = [
+  {
+    id: 1,
+    image: FloweerBouquetList01,
+    product_name: "Bouquet 01",
+    price: "25.000",
+    currency: "Rp.",
+    is_new_arrival: true,
+  },
+  {
+    id: 2,
+    image: FloweerBouquetList01,
+    product_name: "Bouquet 01",
+    price: "25.000",
+    currency: "Rp.",
+    is_new_arrival: true,
+  },
+  {
+    id: 3,
+    image: FloweerBouquetList01,
+    product_name: "Bouquet 01",
+    price: "25.000",
+    currency: "Rp.",
+    is_new_arrival: true,
+  },
+  {
+    id: 4,
+    image: FloweerBouquetList01,
+    product_name: "Bouquet 01",
+    price: "25.000",
+    currency: "Rp.",
+    is_new_arrival: true,
+  },
+  {
+    id: 5,
+    image: FloweerBouquetList01,
+    product_name: "Bouquet 01",
+    price: "25.000",
+    currency: "Rp.",
+    is_new_arrival: true,
+  },
+  {
+    id: 6,
+    image: FloweerBouquetList01,
+    product_name: "Bouquet 01",
+    price: "25.000",
+    currency: "Rp.",
+    is_new_arrival: true,
+  },
+];
+
+interface WhatOurCustomerSayProps {
+  id: number;
+  name: string;
+  comments: string;
+  star_rating: 0 | 1 | 2 | 3 | 4 | 5;
+}
+
+export const WhatOurCustomerSay: WhatOurCustomerSayProps[] = [
+  {
+    id: 1,
+    name: "Jane D.",
+    comments:
+      "The bouquet I ordered was absolutely stunning and even more beautiful than the pictures online. The flowers were incredibly fresh and lasted for over a week. Thank you for making my friend's birthday so special!",
+    star_rating: 5,
+  },
+  {
+    id: 2,
+    name: "Jane D.",
+    comments:
+      "The bouquet I ordered was absolutely stunning and even more beautiful than the pictures online. The flowers were incredibly fresh and lasted for over a week. Thank you for making my friend's birthday so special!",
+    star_rating: 5,
+  },
+  {
+    id: 3,
+    name: "Jane D.",
+    comments:
+      "The bouquet I ordered was absolutely stunning and even more beautiful than the pictures online. The flowers were incredibly fresh and lasted for over a week. Thank you for making my friend's birthday so special!",
+    star_rating: 5,
+  },
+  {
+    id: 4,
+    name: "Jane D.",
+    comments:
+      "The bouquet I ordered was absolutely stunning and even more beautiful than the pictures online. The flowers were incredibly fresh and lasted for over a week. Thank you for making my friend's birthday so special!",
+    star_rating: 5,
   },
 ];
