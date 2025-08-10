@@ -15,6 +15,7 @@ import FlowerCols03 from "@/assets/flower-cols-03.png";
 import FlowerCols04 from "@/assets/flower-cols-04.png";
 
 import FloweerBouquetList01 from "@/assets/flower-bouquet-list-01.png";
+import { Icon, InstagramLogo, TiktokLogo, WhatsappLogo } from "phosphor-react";
 
 interface NavbarListItemProps {
   label: string;
@@ -27,6 +28,53 @@ export const NavbarListItem: NavbarListItemProps[] = [
   { label: "Shop", href: "/shop" },
   { label: "Gallery", href: "/gallery" },
   { label: "Contact us", href: "/contact-us" },
+];
+
+export const FooterPrivacyPolicy: NavbarListItemProps[] = [
+  {
+    label: "Privacy Policy",
+    href: "#",
+  },
+  {
+    label: "Terms of Service",
+    href: "#",
+  },
+  {
+    label: "Cookies Settings",
+    href: "#",
+  },
+];
+
+interface SocialMediaListItemProps {
+  id?: number;
+  label: string;
+  value: string;
+  href: string;
+  icons: Icon;
+}
+
+export const SocialMediaListItem: SocialMediaListItemProps[] = [
+  {
+    id: 1,
+    icons: InstagramLogo,
+    label: "Instagram",
+    value: "@savirafad",
+    href: "https://www.instagram.com/savirafad/",
+  },
+  {
+    id: 2,
+    icons: WhatsappLogo,
+    label: "Whatsapp",
+    value: "+62 8953 8678 8885",
+    href: "https://wa.me/+62895386788885",
+  },
+  {
+    id: 3,
+    icons: TiktokLogo,
+    label: "Tiktok",
+    value: "@savirblossom",
+    href: "https://www.tiktok.com/@savirblossom",
+  },
 ];
 
 interface OurSupportsProps {
@@ -193,6 +241,8 @@ interface LatestBlogsProps {
   href: string;
   categories: string;
   estimated_read_time: string;
+  category_background_color?: string;
+  category_text_color?: string;
 }
 
 export const LatestBlogs: LatestBlogsProps[] = [
@@ -205,6 +255,8 @@ export const LatestBlogs: LatestBlogsProps[] = [
     href: "#",
     categories: "Flower Care",
     estimated_read_time: "3 min read",
+    category_background_color: "#D7B09B",
+    category_text_color: "#fff",
   },
 
   {
@@ -216,6 +268,8 @@ export const LatestBlogs: LatestBlogsProps[] = [
     href: "#",
     categories: "Gifting",
     estimated_read_time: "4 min read",
+    category_background_color: "#FF8C98",
+    category_text_color: "#fff",
   },
   {
     id: 3,
@@ -226,6 +280,8 @@ export const LatestBlogs: LatestBlogsProps[] = [
     href: "#",
     categories: "DIY",
     estimated_read_time: "2 min read",
+    category_background_color: "#FFD92A",
+    category_text_color: "#000",
   },
   {
     id: 4,
@@ -236,5 +292,7 @@ export const LatestBlogs: LatestBlogsProps[] = [
     href: "#",
     categories: "Our Story",
     estimated_read_time: "5 min read",
+    category_background_color: "#FF9D00",
+    category_text_color: "#000",
   },
 ];
