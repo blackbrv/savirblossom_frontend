@@ -7,6 +7,7 @@ import React from "react";
 interface ProductCardProps {
   title: string;
   image: StaticImageData | string;
+  price?: string;
   isNewArrival?: boolean;
   onCartClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -14,6 +15,7 @@ interface ProductCardProps {
 export default function ProductCard({
   title,
   image,
+  price,
   isNewArrival,
   onCartClick,
   ...rest
@@ -43,8 +45,11 @@ export default function ProductCard({
           <CardTitle className="font-sans" aria-label="card-title">
             {title}
           </CardTitle>
-          <CardDescription className="font-sans" aria-label="card-description">
-            Card Description
+          <CardDescription
+            className="font-sans text-grayscale-600"
+            aria-label="card-description"
+          >
+            {price}
           </CardDescription>
         </div>
 

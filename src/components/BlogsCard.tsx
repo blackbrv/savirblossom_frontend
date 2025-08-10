@@ -12,6 +12,10 @@ interface BlogsCardProps {
   href?: string;
   categories?: string;
   estimatedReadTime?: string;
+  categoriesProps?: {
+    backgroundColor?: string;
+    textColor?: string;
+  };
 }
 
 export default function BlogsCard({
@@ -21,6 +25,7 @@ export default function BlogsCard({
   image = GalleryLayout01,
   description = "Discover the secrets to keeping your peonies looking fresh and vibrant. From the best time to buy them to simple tips for arranging, this guide will help you enjoy the king of flowers to its fullest.",
   href = "#",
+  categoriesProps,
   ...rest
 }: BlogsCardProps & HTMLAttributes<HTMLDivElement>) {
   return (
@@ -35,7 +40,13 @@ export default function BlogsCard({
 
       <div className="flex flex-col gap-3 justify-center">
         <div className="flex gap-2 w-max items-center">
-          <Badge className="rounded-md bg-danger-500 text-white py-2 px-3 hover:bg-danger-500">
+          <Badge
+            className="rounded-md py-2 px-3 hover:bg-danger-500"
+            style={{
+              backgroundColor: categoriesProps?.backgroundColor || "#df1c41",
+              color: categoriesProps?.textColor || "#fff",
+            }}
+          >
             {categories}
           </Badge>
           <p className="desktop-tablet__body-medium__semibold !font-bold">
