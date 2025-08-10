@@ -8,4 +8,4 @@ Located in Bandung, Indonesia
 
 I'm a front-end web Developer.
 
-Call me if you want to build a website, especially for front-end tasks!
+Contact me if you want to build a website, especially for front-end tasks!
