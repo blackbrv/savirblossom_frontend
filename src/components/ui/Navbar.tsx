@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Search, ShoppingCart, UserRound } from "lucide-react";
 import React, { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import useScrollListener from "@/lib/utils/useScrollListener";
 
 type NavbarProps = {
   className?: string;
@@ -34,10 +35,13 @@ const UserActionButtonWrapper = ({
 };
 
 export default function Navbar({ className }: NavbarProps) {
+  const { isScroll } = useScrollListener();
+
   return (
     <nav
       className={cn(
         "flex gap-2 items-center  bg-white px-10 py-4 container mx-auto min-w-full justify-between h-max fixed top-0 z-50 transition-all duration-300",
+        isScroll && "bg-primary",
         className,
       )}
     >
@@ -50,7 +54,10 @@ export default function Navbar({ className }: NavbarProps) {
       >
         <Image
           src={SavirBlossomLogo}
-          className="filter invert h-14 w-auto"
+          className={cn(
+            "filter invert h-14 w-auto",
+            isScroll && "filter invert-0",
+          )}
           alt="savirblossom-dark-logo"
         />
       </Link>
@@ -64,24 +71,38 @@ export default function Navbar({ className }: NavbarProps) {
           <Link
             href={nav.href}
             key={index}
-            className="desktop-tablet__body-large__medium flex p-1 items-center text-black hover:text-danger-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-danger-500 transition-all duration-300"
+            className={cn(
+              "desktop-tablet__body-large__medium flex p-1 items-center text-black hover:text-danger-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-danger-500 transition-all duration-300",
+              isScroll && "text-white",
+            )}
           >
             {nav.label}
           </Link>
         ))}
 
-        <UserActionButtonWrapper onClick={() => console.log("Search bar fn")}>
+        <UserActionButtonWrapper
+          onClick={() => console.log("Search bar fn")}
+          className={cn(
+            isScroll && "bg-white/50 text-white hover:bg-danger-500",
+          )}
+        >
           <Search size={20} />
         </UserActionButtonWrapper>
 
         <UserActionButtonWrapper
           onClick={() => console.log("Go to Sopping page")}
+          className={cn(
+            isScroll && "bg-white/50 text-white hover:bg-danger-500",
+          )}
         >
           <ShoppingCart size={20} />
         </UserActionButtonWrapper>
 
         <UserActionButtonWrapper
           onClick={() => console.log("User Action to login or regis")}
+          className={cn(
+            isScroll && "bg-white/50 text-white hover:bg-danger-500",
+          )}
         >
           <UserRound size={20} />
         </UserActionButtonWrapper>
