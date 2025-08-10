@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import React from "react";
 import { StaticImageData } from "next/image";
+import GalleryLayout01 from "@/assets/gallery-layout-01.png";
 
 import FlowerCols01 from "@/assets/flower-cols-01.png";
 import FlowerCols02 from "@/assets/flower-cols-02.png";
@@ -181,5 +182,59 @@ export const WhatOurCustomerSay: WhatOurCustomerSayProps[] = [
     comments:
       "The bouquet I ordered was absolutely stunning and even more beautiful than the pictures online. The flowers were incredibly fresh and lasted for over a week. Thank you for making my friend's birthday so special!",
     star_rating: 5,
+  },
+];
+
+interface LatestBlogsProps {
+  id: number;
+  title: string;
+  image: StaticImageData | string;
+  description: string;
+  href: string;
+  categories: string;
+  estimated_read_time: string;
+}
+
+export const LatestBlogs: LatestBlogsProps[] = [
+  {
+    id: 1,
+    title: "The Peony Power: A Guide to the Season's Most Beautiful Bloom",
+    image: GalleryLayout01,
+    description:
+      "Discover the secrets to keeping your peonies looking fresh and vibrant. From the best time to buy them to simple tips for arranging, this guide will help you enjoy the king of flowers to its fullest.",
+    href: "#",
+    categories: "Flower Care",
+    estimated_read_time: "3 min read",
+  },
+
+  {
+    id: 2,
+    title: "A Rainbow of Roses: Exploring the Meaning Behind Each Color",
+    image: GalleryLayout01,
+    description:
+      "Did you know every rose color carries a unique message? Uncover the hidden language of roses, and learn how to choose the perfect bouquet to convey your deepest feelings.",
+    href: "#",
+    categories: "Gifting",
+    estimated_read_time: "4 min read",
+  },
+  {
+    id: 3,
+    title: "DIY Your Way to a Beautiful Centerpiece",
+    image: GalleryLayout01,
+    description:
+      "Want to bring a professional touch to your home decor? Follow our simple, step-by-step guide to creating stunning floral centerpieces that will impress all your guests.",
+    href: "#",
+    categories: "DIY",
+    estimated_read_time: "2 min read",
+  },
+  {
+    id: 4,
+    title: "The Story of Sunflowers: From Field to Vase",
+    image: GalleryLayout01,
+    description:
+      "Take a journey with us as we follow the lifecycle of the majestic sunflower. Learn about our commitment to sourcing, and discover how these happy flowers make their way from the field to your vase.",
+    href: "#",
+    categories: "Our Story",
+    estimated_read_time: "5 min read",
   },
 ];

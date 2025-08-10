@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import {
   BouquetList,
   HomeGridContent,
+  LatestBlogs,
   OurSupports,
   WhatOurCustomerSay,
 } from "@/lib/utils/constants";
@@ -31,6 +32,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Star } from "phosphor-react";
+import BlogsCard from "@/components/BlogsCard";
 
 const ImageWithDetail = ({
   image,
@@ -63,7 +65,6 @@ const ImageWithDetail = ({
           className="h-full w-auto object-cover"
           data-aos-easing="ease-in-out-back"
           data-aos={imagePosition === "right" ? "fade-left" : "fade-right"}
-          data-aos-once="true"
         />
       </div>
 
@@ -71,7 +72,6 @@ const ImageWithDetail = ({
         className="flex flex-col gap-2 justify-center"
         data-aos-easing="ease-in-out-back"
         data-aos={imagePosition === "right" ? "fade-right" : "fade-left"}
-        data-aos-once="true"
       >
         <h3 className="desktop-tablet__heading__h3 !font-bold">{title}</h3>
         <p className="desktop-tablet__body-medium__medium text-grayscale-400 text-wrap">
@@ -116,18 +116,13 @@ export default function Page() {
     <main className="container flex flex-col gap-2 items-center mx-auto w-full min-h-screen">
       <section className="grid grid-cols-6 w-full mx-auto my-auto items-center min-h-screen/2 pt-30 pb-30">
         <div className="col-span-3 w-full flex flex-col gap-4">
-          <h5
-            className="desktop-tablet__heading__h5"
-            data-aos="fade-right"
-            data-aos-once="true"
-          >
+          <h5 className="desktop-tablet__heading__h5" data-aos="fade-right">
             Your Daily Dose of Happy
           </h5>
           <h1
             className="desktop-tablet__heading__h1 !font-black text-danger-500"
             data-aos-delay="100"
             data-aos="fade-right"
-            data-aos-once="true"
           >
             Fresh Flowers
           </h1>
@@ -136,7 +131,6 @@ export default function Page() {
             className="desktop-tablet__body-large__regular text-grayscale-400 break-words max-w-150 text-wrap"
             data-aos-delay="150"
             data-aos="fade-right"
-            data-aos-once="true"
           >
             Brighten up your day with our vibrant and fresh blooms. We source
             directly from the best growers to ensure every bouquet arrives
@@ -148,7 +142,6 @@ export default function Page() {
             className="flex gap-2 items-center "
             data-aos-delay="200"
             data-aos="fade-right"
-            data-aos-once="true"
           >
             <Button className="text-white hover:bg-danger-500 transition-all duration-300">
               Order Now
@@ -162,7 +155,6 @@ export default function Page() {
           className="col-span-3 col-start-4 flex flex-col gap-2 w-full items-center justify-center"
           data-aos-delay="230"
           data-aos="fade-left"
-          data-aos-once="true"
         >
           <Image src={Flower01} alt="first-flower" />
         </div>
@@ -172,7 +164,6 @@ export default function Page() {
         <div
           className="bg-danger-500/10 flex justify-center items-center min-w-screen p-4"
           data-aos="fade-down"
-          data-aos-once="true"
         >
           <div className="container w-full mx-auto items-center justify-between gap-10 flex">
             {OurSupports.map((supports, index) => (
@@ -181,7 +172,6 @@ export default function Page() {
                 className="text-danger-500 flex gap-2 items-center justify-center"
                 data-aos-delay={100 * (index + 1)}
                 data-aos="fade-up"
-                data-aos-once="true"
               >
                 <supports.icon size={32} />
 
@@ -206,7 +196,6 @@ export default function Page() {
               className="w-full relative flex rounded-lg overflow-hidden bg-gray-200  aspect-[16/5] p-8 items-center justify-center hover:shadow-sm transition-all duration-300 hover:cursor-pointer hover:bg-danger-500 hover:text-white text-black group"
               data-aos-delay={100 * (index + 1)}
               data-aos="fade-in"
-              data-aos-once="true"
             >
               <div className="flex flex-col gap-2 flex-1 z-10">
                 <p className="text-xl">{item.title}</p>
@@ -230,7 +219,6 @@ export default function Page() {
           className="desktop-tablet__heading__h3 !font-bold"
           data-aos-easing="ease-in-out-back"
           data-aos="fade-up"
-          data-aos-once="true"
         >
           Discover Your Perfect Bouquet.
         </h3>
@@ -239,7 +227,6 @@ export default function Page() {
           className="desktop-tablet__body-medium__regular text-grayscale-400 max-w-150 text-center text-wrap"
           data-aos-easing="ease-in-out-back"
           data-aos="fade-up"
-          data-aos-once="true"
         >
           Whether you&apos;re celebrating, gifting, or simply treating yourself,
           we have the perfect arrangement for every occasion. Explore our
@@ -251,7 +238,6 @@ export default function Page() {
           className="flex gap-4 items-cecnter justify-center w-full"
           data-aos-easing="ease-in-out-back"
           data-aos="fade-right"
-          data-aos-once="true"
         >
           {filterComponents.map((filter, index) => (
             <Button
@@ -278,7 +264,6 @@ export default function Page() {
               data-aos-delay={50 * (index + 1)}
               data-aos-easing="ease-in-out-back"
               data-aos="fade-in"
-              data-aos-once="true"
               title={bouquet.product_name}
               isNewArrival={bouquet.is_new_arrival}
               key={index}
@@ -296,7 +281,6 @@ export default function Page() {
         className="min-w-screen max-h-[400px] relative h-[400px] flex flex-col items-center justify-center"
         data-aos-easing="ease-in-out-back"
         data-aos="fade-up"
-        data-aos-once="true"
       >
         <Image
           className="absolute top-0 object-cover h-[400px]"
@@ -311,13 +295,11 @@ export default function Page() {
           className="relative z-20 flex flex-col gap-4 items-center justify-center h-max text-white p-10 rounded-md bg-white/10 w-full container mx-auto"
           data-aos-easing="ease-in-out-back"
           data-aos="fade-up"
-          data-aos-once="true"
         >
           <h3
             className="desktop-tablet__heading__h3 !font-bold tracking-widest text-center"
             data-aos-easing="ease-in-out-back"
             data-aos="fade-up"
-            data-aos-once="true"
           >
             GET 50 % OFF BY SUBSCRIBE <br /> TO OUR NEWSLETTER
           </h3>
@@ -326,7 +308,6 @@ export default function Page() {
             className="relative flex gap-2 items-center p-2 border border-white/20 rounded-lg focus-within:border-white"
             data-aos-easing="ease-in-out-back"
             data-aos="fade-up"
-            data-aos-once="true"
           >
             <Input
               type="email"
@@ -501,7 +482,40 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="container mx-auto flex flex-col gap-4 items-center justice  p-20"></section>
+      <section className="container mx-auto flex flex-col gap-4 items-center justice  p-20">
+        <h3
+          className="desktop-tablet__heading__h3 !font-bold"
+          data-aos-easing="ease-in-out-back"
+          data-aos="fade-down"
+        >
+          Our Latest Blogs.
+        </h3>
+        <p
+          className="desktop-tablet__body-medium__medium text-grayscale-400 max-w-[500px] text-center"
+          data-aos-easing="ease-in-out-back"
+          data-aos="fade-down"
+        >
+          Stay updated with the latest in floral design, flower care tips, and
+          inspiring stories. Our blog is a place for flower lovers to learn,
+          grow, and be inspired.
+        </p>
+
+        <div className="grid grid-cols-2 gap-4">
+          {LatestBlogs.map((blog, index) => (
+            <BlogsCard
+              data-aos-easing="ease-in-out-back"
+              data-aos="fade-down"
+              key={index}
+              title={blog.title}
+              description={blog.description}
+              image={blog.image}
+              href={blog.href}
+              categories={blog.categories}
+              estimatedReadTime={blog.estimated_read_time}
+            />
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
