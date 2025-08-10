@@ -5,6 +5,11 @@ import Flower01 from "@/assets/flower-1.png";
 import FreshnessYouCanTrustImage from "@/assets/freshness-you-can-trust.png";
 import PassionInEveryPetal from "@/assets/passion-in-every-petal.png";
 import SubscribeBg from "@/assets/subscribe-rose-bg.png";
+import GalleryLayout01 from "@/assets/gallery-layout-01.png";
+import GalleryLayout02 from "@/assets/gallery-layout-02.png";
+import GalleryLayout03 from "@/assets/gallery-layout-03.png";
+import GalleryLayout04 from "@/assets/gallery-layout-04.png";
+
 import { Button } from "@/components/ui/button";
 import {
   BouquetList,
@@ -429,6 +434,74 @@ export default function Page() {
           </Carousel>
         </div>
       </section>
+
+      <section className="w-full container mx-auto flex flex-col gap-4 items-center p-20">
+        <h3
+          className="desktop-tablet__heading__h3 !font-bold"
+          data-aos-easing="ease-in-out-back"
+          data-aos="fade-down"
+        >
+          Moments, Made with Flowers.
+        </h3>
+        <p
+          className="desktop-tablet__body-medium__medium text-grayscale-400 max-w-[500px] text-center"
+          data-aos-easing="ease-in-out-back"
+          data-aos="fade-down"
+        >
+          Every photograph in our gallery tells a story of celebration, love,
+          and life. Discover how our flowers have brought beauty to countless
+          special moments.
+        </p>
+
+        <div className="grid grid-cols-4 grid-rows-4 gap-4 max-h-[600px]">
+          <div
+            className="col-span-2 row-span-4 min-w-full "
+            data-aos-easing="ease-in-out-back"
+            data-aos="fade-right"
+          >
+            <Image
+              src={GalleryLayout01}
+              alt={"flower-01"}
+              className="object-cover w-full h-full rounded-2xl hover:scale-105 transition-all duration-300"
+            />
+          </div>
+          <div
+            className="col-span-2 row-span-2 col-start-3 min-w-full "
+            data-aos-easing="ease-in-out-back"
+            data-aos="fade-down-left"
+          >
+            <Image
+              src={GalleryLayout02}
+              alt={"flower-02"}
+              className="object-cover w-full h-full rounded-2xl hover:scale-105 transition-all duration-300"
+            />
+          </div>
+          <div
+            className="row-span-2 col-start-3 row-start-3 min-w-full "
+            data-aos-easing="ease-in-out-back"
+            data-aos="fade-up"
+          >
+            <Image
+              src={GalleryLayout03}
+              alt={"flower-03"}
+              className="object-cover w-full h-full rounded-2xl hover:scale-105 transition-all duration-300"
+            />
+          </div>
+          <div
+            className="row-span-2 col-start-4 row-start-3 min-w-full "
+            data-aos-easing="ease-in-out-back"
+            data-aos="fade-up-left"
+          >
+            <Image
+              src={GalleryLayout04}
+              alt={"flower-04"}
+              className="object-cover w-full h-full rounded-2xl hover:scale-105 transition-all duration-300"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="container mx-auto flex flex-col gap-4 items-center justice  p-20"></section>
     </main>
   );
 }
