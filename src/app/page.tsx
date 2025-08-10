@@ -265,6 +265,7 @@ export default function Page() {
               data-aos-easing="ease-in-out-back"
               data-aos="fade-in"
               title={bouquet.product_name}
+              price={`${bouquet.currency} ${bouquet.price}`}
               isNewArrival={bouquet.is_new_arrival}
               key={index}
               image={bouquet.image}
@@ -397,6 +398,10 @@ export default function Page() {
                         ),
                       )}
                     </div>
+
+                    <p className="desktop-tablet__body-medium__regular text-grayscale-600 text-center">
+                      {rating.comments}
+                    </p>
                   </div>
                 </CarouselItem>
               ))}
@@ -503,6 +508,10 @@ export default function Page() {
         <div className="grid grid-cols-2 gap-4">
           {LatestBlogs.map((blog, index) => (
             <BlogsCard
+              categoriesProps={{
+                backgroundColor: blog.category_background_color,
+                textColor: blog.category_text_color,
+              }}
               data-aos-easing="ease-in-out-back"
               data-aos="fade-down"
               key={index}

@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  icons: "./favicon.ico",
   title: "Savirblossom",
   description: "Fresh Flowers Everyday",
 };
