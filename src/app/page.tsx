@@ -4,7 +4,6 @@ import Image, { StaticImageData } from "next/image";
 import Flower01 from "@/assets/flower-1.png";
 import FreshnessYouCanTrustImage from "@/assets/freshness-you-can-trust.png";
 import PassionInEveryPetal from "@/assets/passion-in-every-petal.png";
-import SubscribeBg from "@/assets/subscribe-rose-bg.png";
 import GalleryLayout01 from "@/assets/gallery-layout-01.png";
 import GalleryLayout02 from "@/assets/gallery-layout-02.png";
 import GalleryLayout03 from "@/assets/gallery-layout-03.png";
@@ -21,7 +20,6 @@ import {
 import React from "react";
 import { cn } from "@/lib/utils";
 import ProductCard from "@/components/ProductCard";
-import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { MoveRight } from "lucide-react";
 import {
@@ -33,6 +31,7 @@ import {
 } from "@/components/ui/carousel";
 import { Star } from "phosphor-react";
 import BlogsCard from "@/components/BlogsCard";
+import SubscribeSection from "@/components/ShopSection/SubscribeSection";
 
 const ImageWithDetail = ({
   image,
@@ -58,7 +57,7 @@ const ImageWithDetail = ({
         imagePosition === "right" && "flex-row-reverse",
       )}
     >
-      <div className="flex flex-col items-center justify-center max-w-[500px]">
+      <div className="flex max-w-[500px] flex-col items-center justify-center">
         <Image
           src={image}
           alt={title.toLowerCase().replaceAll(" ", "-")}
@@ -69,7 +68,7 @@ const ImageWithDetail = ({
       </div>
 
       <div
-        className="flex flex-col gap-2 justify-center"
+        className="flex flex-col justify-center gap-2"
         data-aos-easing="ease-in-out-back"
         data-aos={imagePosition === "right" ? "fade-right" : "fade-left"}
       >
@@ -79,7 +78,7 @@ const ImageWithDetail = ({
         </p>
         <Link
           href={linkProps.href}
-          className="underline text-danger-500 desktop-tablet__body-medium__semibold hover:text-black flex gap-2 items-center w-max"
+          className="text-danger-500 desktop-tablet__body-medium__semibold flex w-max items-center gap-2 underline hover:text-black"
         >
           {linkProps.label}
           <MoveRight />
@@ -113,14 +112,14 @@ export default function Page() {
   ];
 
   return (
-    <main className="container flex flex-col gap-2 items-center mx-auto w-full min-h-screen">
-      <section className="grid grid-cols-6 w-full mx-auto my-auto items-center min-h-screen/2 pt-30 pb-30">
-        <div className="col-span-3 w-full flex flex-col gap-4">
+    <main className="container mx-auto flex min-h-screen w-full flex-col items-center gap-2">
+      <section className="min-h-screen/2 mx-auto my-auto grid w-full grid-cols-6 items-center pt-30 pb-30">
+        <div className="col-span-3 flex w-full flex-col gap-4">
           <h5 className="desktop-tablet__heading__h5" data-aos="fade-right">
             Your Daily Dose of Happy
           </h5>
           <h1
-            className="desktop-tablet__heading__h1 !font-black text-danger-500"
+            className="desktop-tablet__heading__h1 text-danger-500 !font-black"
             data-aos-delay="100"
             data-aos="fade-right"
           >
@@ -128,7 +127,7 @@ export default function Page() {
           </h1>
 
           <p
-            className="desktop-tablet__body-large__regular text-grayscale-400 break-words max-w-150 text-wrap"
+            className="desktop-tablet__body-large__regular text-grayscale-400 max-w-150 text-wrap break-words"
             data-aos-delay="150"
             data-aos="fade-right"
           >
@@ -139,11 +138,11 @@ export default function Page() {
           </p>
 
           <div
-            className="flex gap-2 items-center "
+            className="flex items-center gap-2"
             data-aos-delay="200"
             data-aos="fade-right"
           >
-            <Button className="text-white hover:bg-danger-500 transition-all duration-300">
+            <Button className="hover:bg-danger-500 text-white transition-all duration-300">
               Order Now
             </Button>
 
@@ -152,7 +151,7 @@ export default function Page() {
         </div>
 
         <div
-          className="col-span-3 col-start-4 flex flex-col gap-2 w-full items-center justify-center"
+          className="col-span-3 col-start-4 flex w-full flex-col items-center justify-center gap-2"
           data-aos-delay="230"
           data-aos="fade-left"
         >
@@ -160,16 +159,16 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="h-max flex flex-col items-center">
+      <section className="flex h-max flex-col items-center">
         <div
-          className="bg-danger-500/10 flex justify-center items-center min-w-screen p-4"
+          className="bg-danger-500/10 flex min-w-screen items-center justify-center p-4"
           data-aos="fade-down"
         >
-          <div className="container w-full mx-auto items-center justify-between gap-10 flex">
+          <div className="container mx-auto flex w-full items-center justify-between gap-10">
             {OurSupports.map((supports, index) => (
               <div
                 key={index}
-                className="text-danger-500 flex gap-2 items-center justify-center"
+                className="text-danger-500 flex items-center justify-center gap-2"
                 data-aos-delay={100 * (index + 1)}
                 data-aos="fade-up"
               >
@@ -189,15 +188,15 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="w-full container mx-auto my-auto grid grid-cols-2 gap-4 py-20 px-10">
+        <div className="container mx-auto my-auto grid w-full grid-cols-2 gap-4 px-10 py-20">
           {HomeGridContent.map((item, index) => (
             <div
               key={index}
-              className="w-full relative flex rounded-lg overflow-hidden bg-gray-200  aspect-[16/5] p-8 items-center justify-center hover:shadow-sm transition-all duration-300 hover:cursor-pointer hover:bg-danger-500 hover:text-white text-black group"
+              className="hover:bg-danger-500 group relative flex aspect-[16/5] w-full items-center justify-center overflow-hidden rounded-lg bg-gray-200 p-8 text-black transition-all duration-300 hover:cursor-pointer hover:text-white hover:shadow-sm"
               data-aos-delay={100 * (index + 1)}
               data-aos="fade-in"
             >
-              <div className="flex flex-col gap-2 flex-1 z-10">
+              <div className="z-10 flex flex-1 flex-col gap-2">
                 <p className="text-xl">{item.title}</p>
                 <p className="text-4xl font-bold">{item.subTitle}</p>
               </div>
@@ -207,14 +206,14 @@ export default function Page() {
                 alt={item.title + " " + item.subTitle}
                 width={200}
                 height={200}
-                className="absolute bottom-0 right-0 h-full w-auto object-contain group-hover:scale-105 transition-all duration-300"
+                className="absolute right-0 bottom-0 h-full w-auto object-contain transition-all duration-300 group-hover:scale-105"
               />
             </div>
           ))}
         </div>
       </section>
 
-      <section className="w-full container mx-auto flex flex-col gap-10 items-center h-max p-10">
+      <section className="container mx-auto flex h-max w-full flex-col items-center gap-10 p-10">
         <h3
           className="desktop-tablet__heading__h3 !font-bold"
           data-aos-easing="ease-in-out-back"
@@ -235,7 +234,7 @@ export default function Page() {
         </p>
 
         <div
-          className="flex gap-4 items-cecnter justify-center w-full"
+          className="items-cecnter flex w-full justify-center gap-4"
           data-aos-easing="ease-in-out-back"
           data-aos="fade-right"
         >
@@ -243,9 +242,9 @@ export default function Page() {
             <Button
               key={index}
               className={cn(
-                "rounded-full bg-white border border-grayscale-400 transition-all duration-300 hover:bg-danger-500 hover:text-white hover:border-danger-500",
+                "border-grayscale-400 hover:bg-danger-500 hover:border-danger-500 rounded-full border bg-white transition-all duration-300 hover:text-white",
                 filterState === filter.value &&
-                  "bg-danger-500 text-white hover:bg-white hover:text-primary border-danger-500 hover:border-grayscale-400",
+                  "bg-danger-500 hover:text-primary border-danger-500 hover:border-grayscale-400 text-white hover:bg-white",
               )}
               onClick={(e) => {
                 e.preventDefault();
@@ -278,51 +277,9 @@ export default function Page() {
         </div>
       </section>
 
-      <section
-        className="min-w-screen max-h-[400px] relative h-[400px] flex flex-col items-center justify-center"
-        data-aos-easing="ease-in-out-back"
-        data-aos="fade-up"
-      >
-        <Image
-          className="absolute top-0 object-cover h-[400px]"
-          width={1920}
-          height={400}
-          src={SubscribeBg}
-          alt="rose-bg"
-        />
-        <div className="absolute inset-0 bg-black/50 z-10 min-w-screen min-h-[400px]" />
+      <SubscribeSection />
 
-        <div
-          className="relative z-20 flex flex-col gap-4 items-center justify-center h-max text-white p-10 rounded-md bg-white/10 w-full container mx-auto"
-          data-aos-easing="ease-in-out-back"
-          data-aos="fade-up"
-        >
-          <h3
-            className="desktop-tablet__heading__h3 !font-bold tracking-widest text-center"
-            data-aos-easing="ease-in-out-back"
-            data-aos="fade-up"
-          >
-            GET 50 % OFF BY SUBSCRIBE <br /> TO OUR NEWSLETTER
-          </h3>
-
-          <div
-            className="relative flex gap-2 items-center p-2 border border-white/20 rounded-lg focus-within:border-white"
-            data-aos-easing="ease-in-out-back"
-            data-aos="fade-up"
-          >
-            <Input
-              type="email"
-              className="max-w-[200px] h-max focus-visible:ring-transparent border-0 focus-visible:ring-offset-0"
-              placeholder="Your Email .."
-            />
-            <Button className="bg-white text-danger-500 hover:bg-danger-500 hover:text-white desktop-tablet__body-medium__medium !font-medium">
-              Subscribe
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <section className=" flex flex-col items-center justify-center container mx-auto py-10">
+      <section className="container mx-auto flex flex-col items-center justify-center py-10">
         <ImageWithDetail
           image={FreshnessYouCanTrustImage}
           title="Freshness You Can Trust"
@@ -345,7 +302,7 @@ export default function Page() {
         />
       </section>
 
-      <section className="container mx-auto h-max p-20 flex flex-col gap-4 items-center justify-center">
+      <section className="container mx-auto flex h-max flex-col items-center justify-center gap-4 p-20">
         <h3
           className="desktop-tablet__heading__h3 !font-semibold"
           data-aos-easing="ease-in-out-back"
@@ -354,7 +311,7 @@ export default function Page() {
           What our Customer Say
         </h3>
         <p
-          className="desktop-tablet__body-medium__medium text-grayscale-400 text-center max-w-[500px] text-wrap"
+          className="desktop-tablet__body-medium__medium text-grayscale-400 max-w-[500px] text-center text-wrap"
           data-aos-easing="ease-in-out-back"
           data-aos="fade-up"
         >
@@ -363,7 +320,7 @@ export default function Page() {
           experienced the magic of our arrangements.
         </p>
 
-        <div className="w-full h-max flex flex-col items-center justify-center">
+        <div className="flex h-max w-full flex-col items-center justify-center">
           <Carousel>
             <CarouselContent>
               {WhatOurCustomerSay.map((rating, index) => (
@@ -374,8 +331,8 @@ export default function Page() {
                   data-aos-easing="ease-in-out-back"
                   data-aos="fade-up"
                 >
-                  <div className="flex flex-col gap-4 items-center justify-center">
-                    <div className="w-10 h-10 min-w-10 min-h-10 bg-danger-500 rounded-full flex flex-col items-center justify-center p-2 text-white">
+                  <div className="flex flex-col items-center justify-center gap-4">
+                    <div className="bg-danger-500 flex h-10 min-h-10 w-10 min-w-10 flex-col items-center justify-center rounded-full p-2 text-white">
                       {rating.name
                         .split(" ")
                         .map((item) => item.charAt(0))
@@ -386,7 +343,7 @@ export default function Page() {
                       {rating.name}
                     </p>
 
-                    <div className="flex gap-2 items-center justify-center w-max">
+                    <div className="flex w-max items-center justify-center gap-2">
                       {Array.from({ length: rating.star_rating }).map(
                         (_, index) => (
                           <Star
@@ -421,7 +378,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="w-full container mx-auto flex flex-col gap-4 items-center p-20">
+      <section className="container mx-auto flex w-full flex-col items-center gap-4 p-20">
         <h3
           className="desktop-tablet__heading__h3 !font-bold"
           data-aos-easing="ease-in-out-back"
@@ -439,55 +396,55 @@ export default function Page() {
           special moments.
         </p>
 
-        <div className="grid grid-cols-4 grid-rows-4 gap-4 max-h-[600px]">
+        <div className="grid max-h-[600px] grid-cols-4 grid-rows-4 gap-4">
           <div
-            className="col-span-2 row-span-4 min-w-full "
+            className="col-span-2 row-span-4 min-w-full"
             data-aos-easing="ease-in-out-back"
             data-aos="fade-right"
           >
             <Image
               src={GalleryLayout01}
               alt={"flower-01"}
-              className="object-cover w-full h-full rounded-2xl hover:scale-105 transition-all duration-300"
+              className="h-full w-full rounded-2xl object-cover transition-all duration-300 hover:scale-105"
             />
           </div>
           <div
-            className="col-span-2 row-span-2 col-start-3 min-w-full "
+            className="col-span-2 col-start-3 row-span-2 min-w-full"
             data-aos-easing="ease-in-out-back"
             data-aos="fade-down-left"
           >
             <Image
               src={GalleryLayout02}
               alt={"flower-02"}
-              className="object-cover w-full h-full rounded-2xl hover:scale-105 transition-all duration-300"
+              className="h-full w-full rounded-2xl object-cover transition-all duration-300 hover:scale-105"
             />
           </div>
           <div
-            className="row-span-2 col-start-3 row-start-3 min-w-full "
+            className="col-start-3 row-span-2 row-start-3 min-w-full"
             data-aos-easing="ease-in-out-back"
             data-aos="fade-up"
           >
             <Image
               src={GalleryLayout03}
               alt={"flower-03"}
-              className="object-cover w-full h-full rounded-2xl hover:scale-105 transition-all duration-300"
+              className="h-full w-full rounded-2xl object-cover transition-all duration-300 hover:scale-105"
             />
           </div>
           <div
-            className="row-span-2 col-start-4 row-start-3 min-w-full "
+            className="col-start-4 row-span-2 row-start-3 min-w-full"
             data-aos-easing="ease-in-out-back"
             data-aos="fade-up-left"
           >
             <Image
               src={GalleryLayout04}
               alt={"flower-04"}
-              className="object-cover w-full h-full rounded-2xl hover:scale-105 transition-all duration-300"
+              className="h-full w-full rounded-2xl object-cover transition-all duration-300 hover:scale-105"
             />
           </div>
         </div>
       </section>
 
-      <section className="container mx-auto flex flex-col gap-4 items-center justice  p-20">
+      <section className="justice container mx-auto flex flex-col items-center gap-4 p-20">
         <h3
           className="desktop-tablet__heading__h3 !font-bold"
           data-aos-easing="ease-in-out-back"
