@@ -5,17 +5,19 @@ import { cn } from "@/lib/utils";
 
 interface PaginationProps {
   pages?: number;
-  onNext?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onPrev?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onNumber?: (e: React.MouseEvent<HTMLButtonElement>, pages: number) => void;
+  onPageChange?: (pageToGo: number) => void;
+  onNext?: (e: React.MouseEvent<HTMLButtonElement>) => void; //Next callback
+  onPrev?: (e: React.MouseEvent<HTMLButtonElement>) => void; //Previous callback
+  onNumber?: (e: React.MouseEvent<HTMLButtonElement>, pageToGo: number) => void; //Number callback
   currentPage?: number;
 }
 
 export default function Pagination({
   pages = 4,
-  currentPage,
-  onPrev,
+  currentPage = 1,
+  onPageChange,
   onNext,
+  onPrev,
   onNumber,
 }: PaginationProps) {
   const pageInRange = React.useMemo(() => {
@@ -24,11 +26,50 @@ export default function Pagination({
     return [1, 2, 3, "...", pages];
   }, [pages]);
 
+  const handlePrevious = React.useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      if (currentPage !== 1 && onPageChange) onPageChange?.(currentPage - 1);
+
+      if (!onPrev) return;
+
+      onPrev(e);
+    },
+    [currentPage, onPageChange, onPrev],
+  );
+
+  const handleNext = React.useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      if (currentPage !== pages && onPageChange)
+        onPageChange?.(currentPage + 1);
+
+      if (!onNext) return;
+
+      onNext(e);
+    },
+    [onPageChange, currentPage, pages, onNext],
+  );
+
+  const handleNumbers = React.useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>, pageToGo: number) => {
+      e.preventDefault();
+      if (onPageChange) onPageChange(pageToGo);
+      if (!onNumber) return;
+
+      onNumber(e, pageToGo);
+    },
+    [onPageChange, onNumber],
+  );
+
   return (
-    <div className="flex w-full items-center justify-end gap-2">
+    <div
+      className="flex w-full items-center justify-end gap-2"
+      data-aos="fade-up"
+      data-aos-once={true}
+    >
       <Button
-        data-aos="fade-up"
-        onClick={onPrev}
+        onClick={handlePrevious}
         size={"icon"}
         className="border-grayscale-400 hover:bg-danger-500 border bg-white hover:text-white"
       >
@@ -37,15 +78,14 @@ export default function Pagination({
       {pageInRange.map((range, index) => {
         if (range === "...") {
           return (
-            <span data-aos="fade-up" className="px-4" key={`dots-${index}`}>
+            <span className="px-4" key={`dots-${index}`}>
               ...
             </span>
           );
         }
         return (
           <Button
-            onClick={(e) => onNumber?.(e, index + 1)}
-            data-aos="fade-up"
+            onClick={(e) => handleNumbers?.(e, index + 1)}
             key={index}
             size={"icon"}
             className={cn(
@@ -59,9 +99,8 @@ export default function Pagination({
         );
       })}
       <Button
-        onClick={onNext}
+        onClick={handleNext}
         size={"icon"}
-        data-aos="fade-up"
         className="border-grayscale-400 hover:bg-danger-500 border bg-white hover:text-white"
       >
         <ArrowRight className="h-3 w-3" />

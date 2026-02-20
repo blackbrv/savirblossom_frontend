@@ -4,6 +4,7 @@ import React from "react";
 
 type ShopSectionProviderProps = {
   selectedFilter: string;
+  currentPage: number;
 };
 
 const ShopSectionProvider =

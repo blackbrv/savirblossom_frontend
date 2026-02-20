@@ -3,13 +3,18 @@ import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export default function SubscribeSection() {
+export default function SubscribeSection({
+  animateOnce = false,
+}: {
+  animateOnce?: boolean;
+}) {
   return (
     <section
       id="subscribe-section"
       className="relative flex h-[400px] max-h-[400px] min-w-screen flex-col items-center justify-center"
       data-aos-easing="ease-in-out-back"
       data-aos="fade-up"
+      data-aos-once={animateOnce}
     >
       <Image
         className="absolute top-0 h-[400px] object-cover"
@@ -24,11 +29,13 @@ export default function SubscribeSection() {
         className="relative z-20 container mx-auto flex h-max w-full flex-col items-center justify-center gap-4 rounded-md bg-white/10 p-10 text-white"
         data-aos-easing="ease-in-out-back"
         data-aos="fade-up"
+        data-aos-once={animateOnce}
       >
         <h3
           className="desktop-tablet__heading__h3 text-center !font-bold tracking-widest"
           data-aos-easing="ease-in-out-back"
           data-aos="fade-up"
+          data-aos-once={animateOnce}
         >
           GET 50 % OFF BY SUBSCRIBE <br /> TO OUR NEWSLETTER
         </h3>
@@ -37,6 +44,7 @@ export default function SubscribeSection() {
           className="relative flex items-center gap-2 rounded-lg border border-white/20 p-2 focus-within:border-white"
           data-aos-easing="ease-in-out-back"
           data-aos="fade-up"
+          data-aos-once={animateOnce}
         >
           <Input
             type="email"

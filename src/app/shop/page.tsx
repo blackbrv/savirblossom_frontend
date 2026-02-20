@@ -27,8 +27,7 @@ export default function Page() {
         </div>
       </section>
       <ShopSection />
-
-      <SubscribeSection />
+      <SubscribeSection animateOnce />
     </main>
   );
 }

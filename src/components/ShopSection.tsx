@@ -10,16 +10,18 @@ import {
   useShopSectionprovider,
 } from "./ShopSection/ShopSectionProvider";
 import { Badge } from "./ui/badge";
-import { ArrowLeft, ArrowRight } from "phosphor-react";
 import Pagination from "./Pagination";
+import { ShoppingBasket } from "lucide-react";
 
 export default function ShopSection() {
   const [selectedFilter, setSelectedFilter] = React.useState("new_arrival");
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   return (
     <ShopSectionProvider.Provider
       value={{
         selectedFilter,
+        currentPage,
       }}
     >
       <section className="relative container mx-auto flex h-max w-full flex-col items-center gap-8 p-20">
@@ -51,7 +53,7 @@ export default function ShopSection() {
           </ul>
         </div>
         <ShopItems />
-        <Pagination />
+        <Pagination currentPage={currentPage} onPageChange={setCurrentPage} />
       </section>
     </ShopSectionProvider.Provider>
   );
@@ -74,7 +76,10 @@ function ShopItems() {
             data-aos="fade-up"
             data-aos-delay={100 * index}
           >
-            <div className="relative h-max w-full rounded-[inherit]">
+            <div
+              id="badge-relativeness"
+              className="relative h-max w-full rounded-[inherit]"
+            >
               <Image
                 src={item.galleries?.[0].src || ""}
                 alt={item.galleries?.[0].alt_text || ""}
@@ -88,7 +93,27 @@ function ShopItems() {
                 </Badge>
               )}
             </div>
-            <span>{item.title}</span>
+            <div
+              id="title-cta"
+              className="flex w-full items-center justify-between"
+            >
+              <div
+                id="title-price"
+                className="flex flex-col items-start justify-center gap-2"
+              >
+                <p className="desktop-tablet__body-large__semibold !font-semibold">
+                  {item.title}
+                </p>
+                <span>{item.price}</span>
+              </div>
+
+              <Button
+                size={"icon"}
+                className="hover:bg-danger-500 rounded-full text-white [&_svg]:size-5"
+              >
+                <ShoppingBasket />
+              </Button>
+            </div>
           </div>
         );
       })}
