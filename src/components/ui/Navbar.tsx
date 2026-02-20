@@ -1,6 +1,6 @@
 "use client";
 
-import { NavbarListItem } from "@/lib/utils/constants";
+import { listPathName, NavbarListItem } from "@/lib/utils/constants";
 import SavirBlossomLogo from "@/assets/savir-blossom-logo.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import useScrollListener from "@/lib/utils/useScrollListener";
 import { Input } from "./input";
 import { Button } from "./button";
+import { usePathname } from "next/navigation";
 
 type NavbarProps = {
   className?: string;
@@ -107,12 +108,15 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
 };
 
 export default function Navbar({ className }: NavbarProps) {
+  const pathName = usePathname();
+  const shouldInverted = listPathName.includes(pathName.replace("/", ""));
   const { isScroll } = useScrollListener();
 
   return (
     <nav
       className={cn(
         "relative top-0 z-50 container mx-auto flex h-max min-w-full items-center justify-between gap-2 px-10 py-4 transition-all duration-300",
+        shouldInverted && "fixed",
         isScroll && "bg-primary fixed",
         className,
       )}
@@ -131,7 +135,7 @@ export default function Navbar({ className }: NavbarProps) {
           src={SavirBlossomLogo}
           className={cn(
             "h-14 w-auto invert filter",
-            isScroll && "invert-0 filter",
+            (isScroll || shouldInverted) && "invert-0 filter",
           )}
           alt="savirblossom-dark-logo"
         />
@@ -148,7 +152,9 @@ export default function Navbar({ className }: NavbarProps) {
             key={index}
             className={cn(
               "desktop-tablet__body-large__medium hover:text-danger-500 focus-visible:ring-danger-500 flex items-center rounded-md p-1 text-black transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
-              isScroll && "text-white",
+              (isScroll || shouldInverted) && "text-white",
+              pathName === nav.href &&
+                "text-danger-500 font-medium hover:text-white",
             )}
           >
             {nav.label}
@@ -156,14 +162,15 @@ export default function Navbar({ className }: NavbarProps) {
         ))}
 
         <SearchBar
-          isScroll={isScroll}
+          isScroll={isScroll || shouldInverted}
           onSearchClick={(val) => console.log(val)}
         />
 
         <UserActionButtonWrapper
           onClick={() => console.log("Go to Sopping page")}
           className={cn(
-            isScroll && "hover:bg-danger-500 bg-white/50 text-white",
+            (isScroll || shouldInverted) &&
+              "hover:bg-danger-500 bg-white/50 text-white",
           )}
         >
           <ShoppingCart size={20} />
@@ -172,7 +179,8 @@ export default function Navbar({ className }: NavbarProps) {
         <UserActionButtonWrapper
           onClick={() => console.log("User Action to login or regis")}
           className={cn(
-            isScroll && "hover:bg-danger-500 bg-white/50 text-white",
+            (isScroll || shouldInverted) &&
+              "hover:bg-danger-500 bg-white/50 text-white",
           )}
         >
           <UserRound size={20} />

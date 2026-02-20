@@ -22,6 +22,8 @@ interface NavbarListItemProps {
   href: string;
 }
 
+export const listPathName = ["shop"];
+
 export const NavbarListItem: NavbarListItemProps[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about-us" },
