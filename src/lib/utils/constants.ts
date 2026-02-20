@@ -338,6 +338,7 @@ type ListShopItemTypes = {
   items: ListShopItemsTypes[];
 };
 
+// sample data
 export const ListShopItem: ListShopItemTypes[] = [
   {
     type: "new_arrival",

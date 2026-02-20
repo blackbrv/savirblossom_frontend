@@ -10,6 +10,8 @@ import {
   useShopSectionprovider,
 } from "./ShopSection/ShopSectionProvider";
 import { Badge } from "./ui/badge";
+import { ArrowLeft, ArrowRight } from "phosphor-react";
+import Pagination from "./Pagination";
 
 export default function ShopSection() {
   const [selectedFilter, setSelectedFilter] = React.useState("new_arrival");
@@ -49,7 +51,7 @@ export default function ShopSection() {
           </ul>
         </div>
         <ShopItems />
-        <div className="flex w-full items-center justify-end">pagination</div>
+        <Pagination />
       </section>
     </ShopSectionProvider.Provider>
   );
