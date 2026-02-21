@@ -1,6 +1,6 @@
 "use client";
 
-import { NavbarListItem } from "@/lib/utils/constants";
+import { listPathName, NavbarListItem } from "@/lib/utils/constants";
 import SavirBlossomLogo from "@/assets/savir-blossom-logo.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import useScrollListener from "@/lib/utils/useScrollListener";
 import { Input } from "./input";
 import { Button } from "./button";
+import { usePathname } from "next/navigation";
 
 type NavbarProps = {
   className?: string;
@@ -26,7 +27,7 @@ const UserActionButtonWrapper = ({
   return (
     <button
       className={cn(
-        "flex min-w-5 min-h-5 hover:text-white items-center justify-center text-black  bg-black/10 hover:bg-black transition-all rounded-full p-2 hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-danger-500 duration-300 z-10",
+        "focus-visible:ring-danger-500 z-10 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-black/10 p-2 text-black transition-all duration-300 hover:cursor-pointer hover:bg-black hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
         className,
       )}
       {...rest}
@@ -48,7 +49,7 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
   return (
     <div
       className={cn(
-        "flex rounded-full transition-all duration-300 w-max h-max items-center transform",
+        "flex h-max w-max transform items-center rounded-full transition-all duration-300",
         showSearchbar && "gap-2",
       )}
     >
@@ -58,8 +59,8 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
           setShowSearchbar(!showSearchbar);
         }}
         className={cn(
-          "w-max h-max",
-          isScroll && "bg-white/50 text-white hover:bg-danger-500",
+          "h-max w-max",
+          isScroll && "hover:bg-danger-500 bg-white/50 text-white",
           showSearchbar
             ? isScroll
               ? "bg-danger-500 text-white"
@@ -72,7 +73,7 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
 
       <div
         className={cn(
-          "flex gap-2 items-center transition-all duration-300 ease-in-out",
+          "flex items-center gap-2 transition-all duration-300 ease-in-out",
           !showSearchbar && "max-w-0 opacity-0",
           showSearchbar && "max-w-[300px] opacity-100",
         )}
@@ -83,9 +84,9 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
             setSearch(e.target.value);
           }}
           className={cn(
-            "h-8 flex-1 border-primary",
+            "border-primary h-8 flex-1",
             isScroll &&
-              "border-white/50 focus-visible:border-white/80 text-white placeholder:text-white/50 desktop-tablet__body-medium__medium ring-offset-primary",
+              "desktop-tablet__body-medium__medium ring-offset-primary border-white/50 text-white placeholder:text-white/50 focus-visible:border-white/80",
           )}
           placeholder="Search Bouquet"
         />
@@ -95,7 +96,7 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
             onSearchClick?.(search);
           }}
           className={cn(
-            "bg-black text-white hover:bg-danger-500 hover:text-white desktop-tablet__body-medium__medium h-8",
+            "hover:bg-danger-500 desktop-tablet__body-medium__medium h-8 bg-black text-white hover:text-white",
             isScroll && "bg-white text-black",
           )}
         >
@@ -107,20 +108,23 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
 };
 
 export default function Navbar({ className }: NavbarProps) {
+  const pathName = usePathname();
+  const shouldInverted = listPathName.includes(pathName.replace("/", ""));
   const { isScroll } = useScrollListener();
 
   return (
     <nav
       className={cn(
-        "flex gap-2 items-center  bg-white px-10 py-4 container mx-auto min-w-full justify-between h-max fixed top-0 z-50 transition-all duration-300",
-        isScroll && "bg-primary",
+        "relative top-0 z-50 container mx-auto flex h-max min-w-full items-center justify-between gap-2 px-10 py-4 transition-all duration-300",
+        shouldInverted && "fixed",
+        isScroll && "bg-primary fixed",
         className,
       )}
     >
       <Link
         href={"/"}
         className={cn(
-          "focus-visible:outline-none focus-visible:ring-2 ring-offset-white focus-visible:ring-offset-2 focus-visible:ring-danger-500 transition-all duration-300 rounded-md",
+          "focus-visible:ring-danger-500 rounded-md ring-offset-white transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
           isScroll && "ring-offset-black",
         )}
         aria-label="Home"
@@ -130,15 +134,15 @@ export default function Navbar({ className }: NavbarProps) {
         <Image
           src={SavirBlossomLogo}
           className={cn(
-            "filter invert h-14 w-auto",
-            isScroll && "filter invert-0",
+            "h-14 w-auto invert filter",
+            (isScroll || shouldInverted) && "invert-0 filter",
           )}
           alt="savirblossom-dark-logo"
         />
       </Link>
 
       <div
-        className="w-max gap-4 items-center flex"
+        className="flex w-max items-center gap-4"
         data-aos="fade-left"
         data-aos-once="true"
       >
@@ -147,8 +151,12 @@ export default function Navbar({ className }: NavbarProps) {
             href={nav.href}
             key={index}
             className={cn(
-              "desktop-tablet__body-large__medium flex p-1 items-center text-black hover:text-danger-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-danger-500 transition-all duration-300 rounded-md",
-              isScroll && "text-white",
+              "desktop-tablet__body-large__medium hover:text-danger-500 focus-visible:ring-danger-500 flex items-center rounded-md p-1 text-black transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+              (isScroll || shouldInverted) && "text-white",
+              pathName === nav.href && "text-danger-500 font-medium",
+              pathName === nav.href &&
+                (isScroll || shouldInverted) &&
+                "hover:text-white",
             )}
           >
             {nav.label}
@@ -156,14 +164,15 @@ export default function Navbar({ className }: NavbarProps) {
         ))}
 
         <SearchBar
-          isScroll={isScroll}
+          isScroll={isScroll || shouldInverted}
           onSearchClick={(val) => console.log(val)}
         />
 
         <UserActionButtonWrapper
           onClick={() => console.log("Go to Sopping page")}
           className={cn(
-            isScroll && "bg-white/50 text-white hover:bg-danger-500",
+            (isScroll || shouldInverted) &&
+              "hover:bg-danger-500 bg-white/50 text-white",
           )}
         >
           <ShoppingCart size={20} />
@@ -172,7 +181,8 @@ export default function Navbar({ className }: NavbarProps) {
         <UserActionButtonWrapper
           onClick={() => console.log("User Action to login or regis")}
           className={cn(
-            isScroll && "bg-white/50 text-white hover:bg-danger-500",
+            (isScroll || shouldInverted) &&
+              "hover:bg-danger-500 bg-white/50 text-white",
           )}
         >
           <UserRound size={20} />

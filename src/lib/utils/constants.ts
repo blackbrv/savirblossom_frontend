@@ -22,8 +22,10 @@ interface NavbarListItemProps {
   href: string;
 }
 
+export const listPathName = ["shop"];
+
 export const NavbarListItem: NavbarListItemProps[] = [
-  { label: "Home", href: "/" },
+  // { label: "Home", href: "/" },
   { label: "About", href: "/about-us" },
   { label: "Shop", href: "/shop" },
   { label: "Gallery", href: "/gallery" },
@@ -294,5 +296,274 @@ export const LatestBlogs: LatestBlogsProps[] = [
     estimated_read_time: "5 min read",
     category_background_color: "#FF9D00",
     category_text_color: "#000",
+  },
+];
+
+type ListShopFilterProps = {
+  title: string;
+  value: "new_arrival" | "gift_box" | "bouquet" | "bundling_package";
+};
+
+export const ListShopFilter: ListShopFilterProps[] = [
+  {
+    title: "New Arrival",
+    value: "new_arrival",
+  },
+  {
+    title: "Gift Box",
+    value: "gift_box",
+  },
+  {
+    title: "Bouquet",
+    value: "bouquet",
+  },
+  {
+    title: "Bundling Package",
+    value: "bundling_package",
+  },
+];
+
+type ListShopItemsTypes = {
+  title: string;
+  price: number;
+  currency: string;
+  galleries?: {
+    src: string;
+    alt_text: string;
+  }[];
+};
+
+type ListShopItemTypes = {
+  type: ListShopFilterProps["value"];
+  items: ListShopItemsTypes[];
+};
+
+// sample data
+export const ListShopItem: ListShopItemTypes[] = [
+  {
+    type: "new_arrival",
+    items: [
+      {
+        title: "Spring Pastel Bouquet",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=800",
+            alt_text: "Spring Pastel Bouquet",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1533616688419-b7a585564566?q=80&w=800",
+            alt_text: "Close up petals",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 01",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?q=80&w=800",
+            alt_text: "Bouquet 01",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 01",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1550341334-7bb99388df65?q=80&w=800",
+            alt_text: "Bouquet 01",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 01",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=800",
+            alt_text: "Bouquet 01",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 01",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=800",
+            alt_text: "Bouquet 01",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 01",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=800",
+            alt_text: "Bouquet 01",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: "gift_box",
+    items: [
+      {
+        title: "Luxury Rose Box",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=800",
+            alt_text: "Luxury Rose Box",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=800",
+            alt_text: "Gift arrangement",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 02",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1525310238294-7cc9123c509b?q=80&w=800",
+            alt_text: "Bouquet 02",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 02",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800",
+            alt_text: "Bouquet 02",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 02",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800",
+            alt_text: "Bouquet 02",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: "bouquet",
+    items: [
+      {
+        title: "Wildflower Mix",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1523694553227-ec1c4b984dd6?q=80&w=800",
+            alt_text: "Wildflower Mix",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 03",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?q=80&w=800",
+            alt_text: "Bouquet 03",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 03",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1444930694458-01babf71870c?q=80&w=800",
+            alt_text: "Bouquet 03",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 03",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1563241524-3323055964f4?q=80&w=800",
+            alt_text: "Bouquet 03",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: "bundling_package",
+    items: [
+      {
+        title: "Birthday Combo",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1464333630661-68939c36774c?q=80&w=800",
+            alt_text: "Birthday Combo",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 04",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1502350827281-229215037d42?q=80&w=800",
+            alt_text: "Bouquet 04",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 04",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1533616688419-b7a585564566?q=80&w=800",
+            alt_text: "Bouquet 04",
+          },
+        ],
+      },
+      {
+        title: "Bouquet 04",
+        currency: "Rupiah",
+        price: 25000,
+        galleries: [
+          {
+            src: "https://images.unsplash.com/photo-1596435089018-d51ae81335e4?q=80&w=800",
+            alt_text: "Bouquet 04",
+          },
+        ],
+      },
+    ],
   },
 ];
