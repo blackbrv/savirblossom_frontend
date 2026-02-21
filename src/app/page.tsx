@@ -14,6 +14,7 @@ import {
   BouquetList,
   HomeGridContent,
   LatestBlogs,
+  ListShopFilter,
   OurSupports,
   WhatOurCustomerSay,
 } from "@/lib/utils/constants";
@@ -89,27 +90,7 @@ const ImageWithDetail = ({
 };
 
 export default function Page() {
-  const [filterState, setFilterState] = React.useState("new-arrival");
-
-  const filterComponents = [
-    {
-      label: "New Arrival",
-      value: "new-arrival",
-    },
-    {
-      label: "Gift Box",
-      value: "gift-box",
-    },
-
-    {
-      label: "Bouquet",
-      value: "bouquet",
-    },
-    {
-      label: "Bundling Package",
-      value: "bundling-package",
-    },
-  ];
+  const [filterState, setFilterState] = React.useState("new_arrival");
 
   return (
     <main className="container mx-auto flex min-h-screen w-full flex-col items-center gap-2">
@@ -238,7 +219,7 @@ export default function Page() {
           data-aos-easing="ease-in-out-back"
           data-aos="fade-right"
         >
-          {filterComponents.map((filter, index) => (
+          {ListShopFilter.map((filter, index) => (
             <Button
               key={index}
               className={cn(
@@ -252,7 +233,7 @@ export default function Page() {
                 setFilterState(filter.value);
               }}
             >
-              {filter.label}
+              {filter.title}
             </Button>
           ))}
         </div>
