@@ -153,8 +153,10 @@ export default function Navbar({ className }: NavbarProps) {
             className={cn(
               "desktop-tablet__body-large__medium hover:text-danger-500 focus-visible:ring-danger-500 flex items-center rounded-md p-1 text-black transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
               (isScroll || shouldInverted) && "text-white",
+              pathName === nav.href && "text-danger-500 font-medium",
               pathName === nav.href &&
-                "text-danger-500 font-medium hover:text-white",
+                (isScroll || shouldInverted) &&
+                "hover:text-white",
             )}
           >
             {nav.label}
