@@ -71,7 +71,11 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
         <Search size={20} />
       </UserActionButtonWrapper>
 
-      <div
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
         className={cn(
           "flex items-center gap-2 transition-all duration-300 ease-in-out",
           !showSearchbar && "max-w-0 opacity-0",
@@ -91,6 +95,7 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
           placeholder="Search Bouquet"
         />
         <Button
+          type={"submit"}
           onClick={(e) => {
             e.preventDefault();
             onSearchClick?.(search);
@@ -102,7 +107,7 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
         >
           Search
         </Button>
-      </div>
+      </form>
     </div>
   );
 };
