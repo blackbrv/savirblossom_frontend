@@ -8,6 +8,7 @@ import type {
   PaginatedResponse,
   SingleResponse,
 } from "@/types";
+import { toast } from "@/lib/utils/toast";
 
 interface GetOrdersParams {
   page?: number;
@@ -73,6 +74,13 @@ export function useCreateOrder() {
     mutationFn: createOrder,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders:list"] });
+      toast.success({
+        title: "Order created",
+        message: "Your order has been created successfully",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to create order" });
     },
   });
 }
@@ -102,6 +110,13 @@ export function useUpdateOrder() {
       queryClient.invalidateQueries({
         queryKey: ["orders:detail", variables.id],
       });
+      toast.success({
+        title: "Order updated",
+        message: "Your order has been updated successfully",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to update order" });
     },
   });
 }
@@ -119,6 +134,13 @@ export function useDeleteOrder() {
     mutationFn: deleteOrder,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders:list"] });
+      toast.success({
+        title: "Order deleted",
+        message: "Your order has been deleted successfully",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to delete order" });
     },
   });
 }
@@ -138,6 +160,13 @@ export function useMarkOrderPaid() {
       queryClient.invalidateQueries({ queryKey: ["orders:list"] });
       queryClient.invalidateQueries({ queryKey: ["orders:detail", id] });
       queryClient.invalidateQueries({ queryKey: ["invoices:list"] });
+      toast.success({
+        title: "Payment confirmed",
+        message: "Your payment has been confirmed successfully",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Payment failed" });
     },
   });
 }
@@ -213,6 +242,16 @@ export function useCreateCustomerOrder() {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: ["customer:orders", variables.customerId],
+      });
+      toast.success({
+        title: "Order created",
+        message: "Customer order has been created successfully",
+      });
+    },
+    onError: (error) => {
+      toast.error({
+        error,
+        fallbackMessage: "Failed to create customer order",
       });
     },
   });

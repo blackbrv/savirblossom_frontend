@@ -9,6 +9,7 @@ import type {
   PaginatedResponse,
   SingleResponse,
 } from "@/types";
+import { toast } from "@/lib/utils/toast";
 
 interface GetBouquetsParams {
   page?: number;
@@ -101,6 +102,13 @@ export function useCreateBouquet() {
     mutationFn: (data: BouquetCreateData) => createBouquet(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bouquets:list"] });
+      toast.success({
+        title: "Bouquet created",
+        message: "New bouquet has been created successfully",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to create bouquet" });
     },
   });
 }
@@ -130,6 +138,13 @@ export function useUpdateBouquet() {
       queryClient.invalidateQueries({
         queryKey: ["bouquets:detail", variables.id],
       });
+      toast.success({
+        title: "Bouquet updated",
+        message: "Bouquet has been updated successfully",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to update bouquet" });
     },
   });
 }
@@ -147,6 +162,13 @@ export function useDeleteBouquet() {
     mutationFn: deleteBouquet,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bouquets:list"] });
+      toast.success({
+        title: "Bouquet deleted",
+        message: "Bouquet has been deleted successfully",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to delete bouquet" });
     },
   });
 }
@@ -165,6 +187,13 @@ export function useTogglePublish() {
     onSuccess: (_, id) => {
       queryClient.invalidateQueries({ queryKey: ["bouquets:list"] });
       queryClient.invalidateQueries({ queryKey: ["bouquets:detail", id] });
+      toast.success({
+        title: "Visibility updated",
+        message: "Bouquet visibility has been updated",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to update visibility" });
     },
   });
 }
