@@ -11,6 +11,8 @@ import {
 import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
 import { useBouquets, useCategories } from "@/services/bouquet";
+import { useAddToCart } from "@/services/cart";
+import { useCartContext } from "@/contexts/CartContext";
 
 export default function ShopSection() {
   const { data } = useCategories();
@@ -86,23 +88,33 @@ export default function ShopSection() {
 
 function ShopItems() {
   const { bouquetList } = useShopSectionprovider();
+  const addToCartMutation = useAddToCart();
+  const { items } = useCartContext();
 
   return (
     <div className="grid grid-cols-3 gap-4">
       {bouquetList?.map((item, index) => {
+        const isOnCart = items.some(
+          (cartItem) => cartItem.bouquet_id === item.id,
+        );
         return (
           <ProductCard
+            isOnCart={isOnCart}
+            disableClick={isOnCart}
             data-aos-delay={50 * (index + 1)}
             data-aos-easing="ease-in-out-back"
             data-aos="fade-in"
             title={item.name}
             price={priceFormatter(Number(item.price))}
-            isNewArrival={false}
+            isNewArrival={item.category?.name.toLowerCase().includes("new")}
             key={`${item.name}-${index}`}
             image={item.galleries?.[0]?.src || ""}
             onCartClick={(e) => {
               e.preventDefault();
-              console.log("cart clciked");
+              addToCartMutation.mutate({
+                bouquet_id: item.id,
+                quantity: 1,
+              });
             }}
           />
         );

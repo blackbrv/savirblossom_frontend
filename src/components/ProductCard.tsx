@@ -9,6 +9,8 @@ interface ProductCardProps {
   image: StaticImageData | string;
   price?: string;
   isNewArrival?: boolean;
+  isOnCart?: boolean;
+  disableClick?: boolean;
   onCartClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -16,7 +18,9 @@ export default function ProductCard({
   title,
   image,
   price,
+  isOnCart = false,
   isNewArrival,
+  disableClick = false,
   onCartClick,
   ...rest
 }: ProductCardProps & React.HTMLAttributes<HTMLDivElement>) {
@@ -29,6 +33,12 @@ export default function ProductCard({
         {isNewArrival && (
           <Badge className="bg-danger-500 desktop-tablet__body-medium__medium hover:bg-danger-500 absolute top-2 left-2 rounded-sm text-white">
             New
+          </Badge>
+        )}
+
+        {isOnCart && (
+          <Badge className="desktop-tablet__body-medium__medium absolute top-2 right-2 rounded-sm bg-black text-white hover:bg-black">
+            Already on cart
           </Badge>
         )}
 
@@ -54,8 +64,9 @@ export default function ProductCard({
         </div>
 
         <button
+          disabled={disableClick}
           aria-label="add-to-cart-button"
-          className="focus-visible:ring-danger-500 border-grayscale-400 text-grayscale-400 flex flex-col items-center justify-center rounded-full border p-2 transition-all duration-300 hover:cursor-pointer hover:border-black hover:bg-black hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+          className="focus-visible:ring-danger-500 border-grayscale-400 text-grayscale-400 disabled:bg-grayscale-100 disabled:hover:border-grayscale-400 disabled:hover:bg-grayscale-200 disabled:hover:text-grayscale-400 flex flex-col items-center justify-center rounded-full border p-2 transition-all duration-300 hover:cursor-pointer hover:border-black hover:bg-black hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:hover:cursor-not-allowed"
           onClick={onCartClick}
         >
           <ShoppingBasket size={20} />
