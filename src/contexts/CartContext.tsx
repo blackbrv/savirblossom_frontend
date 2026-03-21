@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useCallback, useMemo } from "react";
+import React, { createContext, useCallback } from "react";
 
 import type { CartItem, Order } from "@/types";
 import type { SingleResponse } from "@/services/api-types";
@@ -42,22 +42,9 @@ function CartProvider({ children }: { children: React.ReactNode }) {
   const clearMutation = useClearCart();
   const checkoutMutation = useCheckout();
 
-  const items = useMemo(() => data?.data ?? [], [data]);
-
-  const itemCount = useMemo(
-    () => items.reduce((sum: number, item: CartItem) => sum + item.quantity, 0),
-    [items],
-  );
-
-  const totalPrice = useMemo(
-    () =>
-      items.reduce(
-        (sum: number, item: CartItem) =>
-          sum + (item.bouquet?.price ?? 0) * item.quantity,
-        0,
-      ),
-    [items],
-  );
+  const items: CartItem[] = data?.data?.items ?? [];
+  const itemCount: number = data?.data?.total_quantity ?? 0;
+  const totalPrice: number = data?.data?.total_price ?? 0;
 
   const addToCart = useCallback(
     async (bouquetId: number, quantity: number) => {
