@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 
 import type { Customer } from "@/types";
 import { getAuthToken, removeAuthToken, setAuthToken } from "@/services/api";
@@ -27,7 +26,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isInitialized, setIsInitialized] = useState(false);
-  const queryClient = useQueryClient();
 
   const { data: userData, isLoading: isLoadingUser } = useMe({
     queryKey: ["auth:me"],
@@ -49,10 +47,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await loginMutation.mutateAsync(data);
       if (response.token) {
         setAuthToken(response.token);
-        queryClient.invalidateQueries({ queryKey: ["auth:me"] });
       }
     },
-    [loginMutation, queryClient],
+    [loginMutation],
   );
 
   const register = useCallback(
@@ -66,10 +63,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await registerMutation.mutateAsync(data);
       if (response.token) {
         setAuthToken(response.token);
-        queryClient.invalidateQueries({ queryKey: ["auth:me"] });
       }
     },
-    [registerMutation, queryClient],
+    [registerMutation],
   );
 
   const logout = useCallback(async () => {
