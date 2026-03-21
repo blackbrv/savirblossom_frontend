@@ -1,7 +1,7 @@
 export interface AuthResponse {
   message: string;
   token?: string;
-  user?: import("./customer").Customer;
+  customer?: import("./customer").Customer;
 }
 
 export interface LoginData {

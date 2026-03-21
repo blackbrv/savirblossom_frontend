@@ -1,13 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { api, removeAuthToken } from "../api";
-import type {
-  AuthResponse,
-  LoginData,
-  RegisterData,
-  SingleResponse,
-} from "@/types";
-import type { Customer } from "@/types";
+import { api, authApi, removeAuthToken } from "../api";
+import type { AuthResponse, LoginData, RegisterData, Customer } from "@/types";
+
+interface MeResponse {
+  customer: Customer;
+}
 
 async function login(data: LoginData): Promise<AuthResponse> {
   return api<AuthResponse>("/api/auth/login", {
@@ -50,7 +48,7 @@ export function useRegister() {
 
 async function logout(): Promise<void> {
   try {
-    await api("/api/auth/logout", {
+    await authApi("/api/auth/logout", {
       method: "POST",
     });
   } finally {
@@ -69,12 +67,9 @@ export function useLogout() {
   });
 }
 
-async function me(): Promise<SingleResponse<Customer>> {
-  return api<SingleResponse<Customer>>("/api/auth/me", {
+async function me(): Promise<MeResponse> {
+  return authApi<MeResponse>("/api/auth/me", {
     method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
   });
 }
 
