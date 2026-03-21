@@ -5,11 +5,12 @@ import type {
   Category,
   CategoryCreateData,
   CategoryUpdateData,
+  PaginatedResponse,
   SingleResponse,
 } from "@/types";
 
-async function getCategories(): Promise<SingleResponse<Category[]>> {
-  return api<SingleResponse<Category[]>>("/api/bouquet/categories");
+async function getCategories(): Promise<PaginatedResponse<Category>> {
+  return api<PaginatedResponse<Category>>("/api/bouquet/categories");
 }
 
 export function useCategories() {

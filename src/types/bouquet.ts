@@ -18,9 +18,8 @@ export interface Bouquet {
   id: number;
   name: string;
   description: string | null;
-  price: number;
+  price: string;
   stock: number;
-  category_id: number;
   published: boolean;
   category?: Category;
   galleries?: BouquetGallery[];

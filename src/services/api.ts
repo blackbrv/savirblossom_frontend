@@ -39,10 +39,54 @@ export async function api<T>(path: string, options?: RequestInit): Promise<T> {
     headers.set("Accept", "application/json");
   }
 
-  const token = getAuthToken();
-  if (token) {
-    headers.set("Authorization", `Bearer ${token}`);
+  const res = await fetch(`${BASE_URL}${path}`, {
+    headers,
+    ...options,
+  });
+
+  if (!res.ok) {
+    let errorBody: APIErrorResponse | undefined;
+    try {
+      errorBody = await res.json();
+    } catch {
+      // Fallback to plain text if JSON parsing fails
+    }
+
+    throw new APIError(
+      errorBody?.message || `HTTP Error ${res.status}`,
+      res.status,
+      errorBody,
+    );
   }
+
+  if (res.status === 204) {
+    return undefined as T;
+  }
+
+  return res.json();
+}
+
+export async function authApi<T>(
+  path: string,
+  options?: RequestInit,
+): Promise<T> {
+  const token = getAuthToken();
+
+  if (!token) {
+    throw new APIError("Unauthorized", 401);
+  }
+
+  const headers = new Headers(options?.headers);
+
+  if (!headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
+
+  if (!headers.has("Accept")) {
+    headers.set("Accept", "application/json");
+  }
+
+  headers.set("Authorization", `Bearer ${token}`);
 
   const res = await fetch(`${BASE_URL}${path}`, {
     headers,
