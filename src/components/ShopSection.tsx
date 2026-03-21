@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, priceFormatter } from "@/lib/utils";
+import { cn, priceFormatter, scrollToTop } from "@/lib/utils";
 import { Button } from "./ui/button";
 // import { ListShopFilter, ListShopItem } from "@/lib/utils/constants";
 import React from "react";
@@ -29,6 +29,8 @@ export default function ShopSection() {
     if (data && data.data.length > 0) setSelectedFilter(data.data[0].id);
   }, [data]);
 
+  const lastPage = bouquet?.meta.last_page ?? 1;
+
   return (
     <ShopSectionProvider.Provider
       value={{
@@ -53,6 +55,7 @@ export default function ShopSection() {
                   onClick={(e) => {
                     e.preventDefault();
                     setSelectedFilter(item.id);
+                    setCurrentPage(1);
                   }}
                   className={cn(
                     "border-grayscale-400 hover:bg-danger-500 desktop-tablet__body-large__semibold hover:border-danger-500 rounded-full border bg-white font-semibold hover:text-white",
@@ -67,7 +70,15 @@ export default function ShopSection() {
           </ul>
         </div>
         <ShopItems />
-        <Pagination currentPage={currentPage} onPageChange={setCurrentPage} />
+        <Pagination
+          currentPage={currentPage}
+          lastPage={lastPage}
+          onPageChange={(page) =>
+            scrollToTop({
+              onComplete: () => setCurrentPage(page),
+            })
+          }
+        />
       </section>
     </ShopSectionProvider.Provider>
   );

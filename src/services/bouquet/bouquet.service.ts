@@ -24,7 +24,7 @@ interface GetBouquetsParams {
 
 async function getBouquets({
   page = 1,
-  perPage = 10,
+  perPage = 9,
   categoryId,
   search,
   minPrice,
