@@ -35,7 +35,7 @@ export default function CartPage() {
     return items
       .filter((item) => selectedItems.has(item.id))
       .reduce(
-        (sum, item) => sum + (item.bouquet?.price ?? 0) * item.quantity,
+        (sum, item) => sum + (Number(item.bouquet?.price) ?? 0) * item.quantity,
         0,
       );
   }, [items, selectedItems]);

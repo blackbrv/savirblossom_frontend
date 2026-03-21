@@ -23,7 +23,7 @@ export function OrderSummary({ items, totalPrice }: OrderSummaryProps) {
           {items.map((item) => {
             const bouquet = item.bouquet;
             const price = bouquet?.price ?? 0;
-            const subtotal = price * item.quantity;
+            const subtotal = Number(price) * item.quantity;
             const mainImage = bouquet?.galleries?.[0]?.src;
 
             return (
@@ -51,7 +51,7 @@ export function OrderSummary({ items, totalPrice }: OrderSummaryProps) {
                     {bouquet?.name ?? "Unknown Product"}
                   </h4>
                   <p className="text-xs text-gray-500">
-                    {item.quantity} x {priceFormatter(price)}
+                    {item.quantity} x {priceFormatter(Number(price))}
                   </p>
                 </div>
 

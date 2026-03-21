@@ -31,7 +31,7 @@ export function CartItemCard({
 }: CartItemCardProps) {
   const bouquet = item.bouquet;
   const price = bouquet?.price ?? 0;
-  const subtotal = price * item.quantity;
+  const subtotal = Number(price) * item.quantity;
   const mainImage = bouquet?.galleries?.[0]?.src;
 
   const handleQuantityChange = (delta: number) => {
@@ -73,7 +73,9 @@ export function CartItemCard({
         <h3 className="line-clamp-1 font-medium text-gray-900">
           {bouquet?.name ?? "Unknown Product"}
         </h3>
-        <p className="text-sm text-gray-500">{priceFormatter(price)} / item</p>
+        <p className="text-sm text-gray-500">
+          {priceFormatter(Number(price))} / item
+        </p>
       </div>
 
       <div className="flex items-center gap-2">
