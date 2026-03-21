@@ -44,15 +44,19 @@ export function CartSummary({
         </div>
 
         <div className="mt-6">
-          <Link href="/checkout" className="block">
-            <Button
-              className="bg-danger-500 hover:bg-danger-600 w-full"
-              disabled={isEmpty}
-              size="lg"
+          <Button
+            className="bg-danger-500 desktop-tablet__body-medium__semibold w-full text-white hover:bg-black"
+            disabled={isEmpty}
+            size="lg"
+            asChild
+          >
+            <Link
+              href="/checkout"
+              className="block transition-all duration-300"
             >
               Proceed to Checkout
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
 
         <p className="mt-3 text-center text-xs text-gray-500">

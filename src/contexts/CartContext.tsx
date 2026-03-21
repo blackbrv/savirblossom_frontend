@@ -12,8 +12,10 @@ import {
   useClearCart,
   useCheckout,
 } from "@/services/cart";
+import { useAuthContext } from "./AuthContext";
 
 interface CartContextType {
+  isInitialized: boolean;
   items: CartItem[];
   itemCount: number;
   totalPrice: number;
@@ -35,6 +37,9 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 function CartProvider({ children }: { children: React.ReactNode }) {
+  // This is initialized even tho it didn't used anywhere in this cart provider or other places
+  // It still acts like a re-render for this cart provider, so when we logged out we immediately get a new data from the cache
+  const { isInitialized } = useAuthContext();
   const { data, isLoading } = useCart();
   const addMutation = useAddToCart();
   const updateMutation = useUpdateCartItem();
@@ -82,6 +87,7 @@ function CartProvider({ children }: { children: React.ReactNode }) {
   );
 
   const value: CartContextType = {
+    isInitialized,
     items,
     itemCount,
     totalPrice,

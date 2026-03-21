@@ -7,6 +7,8 @@ import { CartItem } from "@/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { priceFormatter } from "@/lib/utils";
+import { BentoLayout } from "../ui/BentoLayout";
+import { toast } from "../ui/use-toast";
 
 interface CartItemCardProps {
   item: CartItem;
@@ -42,11 +44,11 @@ export function CartItemCard({
   };
 
   return (
-    <div
+    <BentoLayout
       data-aos="fade-up"
       data-aos-delay={index * 100}
       data-aos-once={true}
-      className="flex items-center gap-4 rounded-lg border bg-white p-4"
+      className="flex items-center gap-4 rounded-lg bg-white p-4"
     >
       <Checkbox
         checked={isSelected}
@@ -116,6 +118,6 @@ export function CartItemCard({
           <Trash2 size={16} />
         </Button>
       </div>
-    </div>
+    </BentoLayout>
   );
 }

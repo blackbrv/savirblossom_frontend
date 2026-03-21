@@ -42,7 +42,13 @@ export default function CheckoutPage() {
   if (isAuthLoading || isCartLoading) {
     return (
       <main className="container mx-auto min-h-screen px-4 py-8">
-        <h1 className="desktop-tablet__heading__h2 mb-8">Checkout</h1>
+        <h1
+          className="desktop-tablet__heading__h2 mb-8"
+          data-aos="fade-up"
+          data-aos-once={true}
+        >
+          Checkout
+        </h1>
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="space-y-4">
             <Skeleton className="h-64 w-full" />
@@ -62,7 +68,13 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <main className="container mx-auto min-h-screen px-4 py-8">
-        <h1 className="desktop-tablet__heading__h2 mb-8">Checkout</h1>
+        <h1
+          data-aos="fade-up"
+          data-aos-once={true}
+          className="desktop-tablet__heading__h2 mb-8"
+        >
+          Checkout
+        </h1>
         <EmptyCart />
       </main>
     );
@@ -70,7 +82,13 @@ export default function CheckoutPage() {
 
   return (
     <main className="container mx-auto min-h-screen px-4 py-8">
-      <h1 className="desktop-tablet__heading__h2 mb-8">Checkout</h1>
+      <h1
+        className="desktop-tablet__heading__h2 mb-8"
+        data-aos="fade-up"
+        data-aos-once={true}
+      >
+        Checkout
+      </h1>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <CheckoutForm

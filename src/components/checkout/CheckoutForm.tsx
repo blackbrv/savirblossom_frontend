@@ -96,7 +96,7 @@ export function CheckoutForm({
           <div className="flex flex-col gap-3 pt-4">
             <Button
               type="submit"
-              className="bg-danger-500 hover:bg-danger-600 w-full"
+              className="bg-danger-500 desktop-tablet__body-medium__semibold w-full text-white hover:bg-black"
               size="lg"
               disabled={isSubmitting}
             >

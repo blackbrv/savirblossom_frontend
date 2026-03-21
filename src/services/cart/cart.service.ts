@@ -10,6 +10,7 @@ import type {
 } from "@/types";
 import type { SingleResponse } from "@/services/api-types";
 import type { Order } from "@/types";
+import { toast } from "@/lib/utils/toast";
 
 interface CartResponseData {
   items: CartItem[];
@@ -27,6 +28,7 @@ export function useCart() {
   return useQuery({
     queryKey: ["cart:list"],
     queryFn: getCart,
+    // enabled: !!getAuthToken(),
   });
 }
 
@@ -44,6 +46,13 @@ export function useAddToCart() {
     mutationFn: addToCart,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart:list"] });
+      toast.success({
+        title: "Added to cart",
+        message: "Item has been added to your cart",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to add item to cart" });
     },
   });
 }
@@ -66,6 +75,13 @@ export function useUpdateCartItem() {
       updateCartItem(id, { quantity }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart:list"] });
+      toast.success({
+        title: "Cart updated",
+        message: "Your cart has been updated",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to update cart" });
     },
   });
 }
@@ -83,6 +99,13 @@ export function useRemoveCartItem() {
     mutationFn: removeCartItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart:list"] });
+      toast.success({
+        title: "Item removed",
+        message: "Item has been removed from your cart",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to remove item" });
     },
   });
 }
@@ -100,6 +123,13 @@ export function useClearCart() {
     mutationFn: clearCart,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart:list"] });
+      toast.success({
+        title: "Cart cleared",
+        message: "All items have been removed from your cart",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Failed to clear cart" });
     },
   });
 }
@@ -120,6 +150,13 @@ export function useCheckout() {
       queryClient.invalidateQueries({ queryKey: ["cart:list"] });
       queryClient.invalidateQueries({ queryKey: ["orders:list"] });
       queryClient.invalidateQueries({ queryKey: ["invoices:list"] });
+      toast.success({
+        title: "Order placed!",
+        message: "Your order has been successfully placed",
+      });
+    },
+    onError: (error) => {
+      toast.error({ error, fallbackMessage: "Checkout failed" });
     },
   });
 }
