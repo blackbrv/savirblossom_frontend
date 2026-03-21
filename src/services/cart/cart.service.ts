@@ -1,22 +1,25 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { api } from "../api";
+import { authApi } from "../api";
 import type {
   AddToCartData,
   CartItem,
   CartResponse,
   CheckoutData,
-  SingleResponse,
   UpdateCartItemData,
 } from "@/types";
+import type { SingleResponse } from "@/services/api-types";
 import type { Order } from "@/types";
 
-async function getCart(): Promise<SingleResponse<CartItem[]>> {
-  return api<SingleResponse<CartItem[]>>("/api/cart", {
+interface CartResponseData {
+  items: CartItem[];
+  total_quantity: number;
+  total_price: number;
+}
+
+async function getCart(): Promise<{ data: CartResponseData }> {
+  return authApi<{ data: CartResponseData }>("/api/cart", {
     method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
   });
 }
 
@@ -28,12 +31,8 @@ export function useCart() {
 }
 
 async function addToCart(data: AddToCartData): Promise<CartResponse> {
-  return api<CartResponse>("/api/cart", {
+  return authApi<CartResponse>("/api/cart", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
     body: JSON.stringify(data),
   });
 }
@@ -53,12 +52,8 @@ async function updateCartItem(
   id: number,
   data: UpdateCartItemData,
 ): Promise<CartResponse> {
-  return api<CartResponse>(`/api/cart/${id}`, {
+  return authApi<CartResponse>(`/api/cart/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
     body: JSON.stringify(data),
   });
 }
@@ -76,7 +71,7 @@ export function useUpdateCartItem() {
 }
 
 async function removeCartItem(id: number): Promise<void> {
-  return api(`/api/cart/${id}`, {
+  return authApi(`/api/cart/${id}`, {
     method: "DELETE",
   });
 }
@@ -93,7 +88,7 @@ export function useRemoveCartItem() {
 }
 
 async function clearCart(): Promise<void> {
-  return api("/api/cart", {
+  return authApi("/api/cart", {
     method: "DELETE",
   });
 }
@@ -110,12 +105,8 @@ export function useClearCart() {
 }
 
 async function checkout(data: CheckoutData): Promise<SingleResponse<Order>> {
-  return api<SingleResponse<Order>>("/api/cart/checkout", {
+  return authApi<SingleResponse<Order>>("/api/cart/checkout", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
     body: JSON.stringify(data),
   });
 }
