@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { api } from "../api";
+import { api, authApi } from "../api";
 import type {
   Order,
   OrderCreateData,
@@ -156,7 +156,7 @@ async function getCustomerOrders(
   if (status) searchParams.append("status", status);
   if (paymentStatus) searchParams.append("payment_status", paymentStatus);
 
-  return api<PaginatedResponse<Order>>(
+  return authApi<PaginatedResponse<Order>>(
     `/api/customers/${customerId}/orders?${searchParams.toString()}`,
   );
 }
@@ -176,7 +176,7 @@ async function getCustomerOrder(
   customerId: number,
   orderId: number,
 ): Promise<SingleResponse<Order>> {
-  return api<SingleResponse<Order>>(
+  return authApi<SingleResponse<Order>>(
     `/api/customers/${customerId}/orders/${orderId}`,
   );
 }
@@ -193,12 +193,8 @@ async function createCustomerOrder(
   customerId: number,
   data: OrderCreateData,
 ): Promise<SingleResponse<Order>> {
-  return api<SingleResponse<Order>>(`/api/customers/${customerId}/orders`, {
+  return authApi<SingleResponse<Order>>(`/api/customers/${customerId}/orders`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
     body: JSON.stringify(data),
   });
 }
