@@ -114,6 +114,7 @@ function ShopItems() {
         );
         return (
           <ProductCard
+            bouquetId={item.id}
             isOnCart={isOnCart}
             disableClick={isOnCart}
             data-aos-delay={50 * (index + 1)}

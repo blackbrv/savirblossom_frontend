@@ -3,10 +3,12 @@ import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { ShoppingBasket } from "lucide-react";
 import { Badge } from "./ui/badge";
 import React from "react";
+import Link from "next/link";
 
 interface ProductCardProps {
   title: string;
   image: StaticImageData | string;
+  bouquetId?: number;
   price?: string;
   isNewArrival?: boolean;
   isOnCart?: boolean;
@@ -15,6 +17,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({
+  bouquetId,
   title,
   image,
   price,
@@ -52,8 +55,11 @@ export default function ProductCard({
       </CardHeader>
       <div className="flex w-full items-center justify-between">
         <div className="flex flex-col gap-1">
-          <CardTitle className="font-sans" aria-label="card-title">
-            {title}
+          <CardTitle
+            className="hover:text-danger-500 font-sans transition-all duration-300"
+            aria-label="card-title"
+          >
+            <Link href={`/shop/bouquet/${bouquetId}`}>{title}</Link>
           </CardTitle>
           <CardDescription
             className="text-grayscale-600 font-sans"
