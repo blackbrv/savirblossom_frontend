@@ -12,6 +12,7 @@ import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
 import { useBouquets, useCategories } from "@/services/bouquet";
 import { useAddToCart } from "@/services/cart";
+import { Spinner } from "phosphor-react";
 import { useCartContext } from "@/contexts/CartContext";
 
 export default function ShopSection() {
@@ -87,9 +88,23 @@ export default function ShopSection() {
 }
 
 function ShopItems() {
-  const { bouquetList } = useShopSectionprovider();
+  const { bouquetList, isBouquetLoading } = useShopSectionprovider();
   const addToCartMutation = useAddToCart();
   const { items } = useCartContext();
+
+  if (isBouquetLoading) {
+    return (
+      <div className="grid grid-cols-3 gap-4">
+        <div className="col-span-full flex h-[400px] items-center justify-center">
+          <Spinner
+            size={36}
+            weight="bold"
+            className="text-grayscale-400 animate-spin"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-3 gap-4">
@@ -99,6 +114,7 @@ function ShopItems() {
         );
         return (
           <ProductCard
+            bouquetId={item.id}
             isOnCart={isOnCart}
             disableClick={isOnCart}
             data-aos-delay={50 * (index + 1)}

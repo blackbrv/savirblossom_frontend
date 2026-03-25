@@ -9,7 +9,6 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Button } from "./button";
 import { cn } from "@/lib/utils";
-import SavirBlossomLogo from "@/assets/savir-blossom-logo.svg";
 
 interface UserProfileDropdownProps {
   isScroll?: boolean;

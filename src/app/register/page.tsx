@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 interface RegisterFormData {
@@ -131,15 +132,13 @@ export default function RegisterPage() {
                 },
               }}
               render={({ field }) => (
-                <Input
+                <PasswordInput
                   {...field}
-                  type="password"
                   placeholder="Enter your password"
                   onChange={field.onChange}
                   onBlur={field.onBlur}
                   value={field.value ?? ""}
                   disabled={isSubmitting || isAuthLoading}
-                  className="focus:ring-danger-500 w-full rounded-md bg-gray-100 outline-none focus:ring-2"
                 />
               )}
             />
@@ -161,15 +160,13 @@ export default function RegisterPage() {
                   value === password || "Passwords do not match",
               }}
               render={({ field }) => (
-                <Input
+                <PasswordInput
                   {...field}
-                  type="password"
                   placeholder="Confirm your password"
                   onChange={field.onChange}
                   onBlur={field.onBlur}
                   value={field.value ?? ""}
                   disabled={isSubmitting || isAuthLoading}
-                  className="focus:ring-danger-500 w-full rounded-md bg-gray-100 outline-none focus:ring-2"
                 />
               )}
             />

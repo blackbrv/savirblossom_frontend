@@ -6,13 +6,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { Search, ShoppingCart } from "lucide-react";
 import React, { HTMLAttributes } from "react";
-import { cn } from "@/lib/utils";
+import { cn, priceFormatter } from "@/lib/utils";
 import useScrollListener from "@/lib/utils/useScrollListener";
 import { Input } from "./input";
 import { Button } from "./button";
 import { usePathname } from "next/navigation";
 import { useCartContext } from "@/contexts/CartContext";
 import { UserProfileDropdown } from "./UserProfileDropdown";
+import useDebounce from "@/lib/utils/useDebounce";
+import { useBouquets } from "@/services/bouquet";
+import { Spinner } from "phosphor-react";
 
 type NavbarProps = {
   className?: string;
@@ -47,11 +50,37 @@ interface SearchbarProps {
 const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
   const [showSearchbar, setShowSearchbar] = React.useState(false);
   const [search, setSearch] = React.useState("");
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  const debouncedSearch = useDebounce(search, 300);
+
+  const { data, isLoading } = useBouquets({
+    search: debouncedSearch.length >= 2 ? debouncedSearch : undefined,
+    perPage: 5,
+  });
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setSearch("");
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const shouldShowDropdown =
+    search.length >= 2 && (isLoading || (data?.data?.length ?? 0) > 0);
 
   return (
     <div
+      ref={dropdownRef}
       className={cn(
-        "flex h-max w-max transform items-center rounded-full transition-all duration-300",
+        "relative flex h-max w-max transform items-center rounded-full transition-all duration-300",
         showSearchbar && "gap-2",
       )}
     >
@@ -59,6 +88,9 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
         onClick={(e) => {
           e.preventDefault();
           setShowSearchbar(!showSearchbar);
+          if (!showSearchbar) {
+            setSearch("");
+          }
         }}
         className={cn(
           "h-max w-max",
@@ -84,18 +116,70 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
           showSearchbar && "max-w-[300px] opacity-100",
         )}
       >
-        <Input
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
-          className={cn(
-            "border-primary h-8 flex-1",
-            isScroll &&
-              "desktop-tablet__body-medium__medium ring-offset-primary border-white/50 text-white placeholder:text-white/50 focus-visible:border-white/80",
+        <div className="relative">
+          <Input
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            onFocus={() => {}}
+            className={cn(
+              "border-primary h-8 flex-1",
+              isScroll &&
+                "desktop-tablet__body-medium__medium ring-offset-primary border-white/50 text-white placeholder:text-white/50 focus-visible:border-white/80",
+            )}
+            placeholder="Search Bouquet"
+          />
+          {shouldShowDropdown && (
+            <div className="border-grayscale-200 absolute top-full left-0 z-50 mt-2 w-[300px] overflow-hidden rounded-lg border bg-white shadow-lg">
+              {isLoading ? (
+                <div className="flex items-center justify-center p-4">
+                  <Spinner
+                    size={24}
+                    className="text-grayscale-400 animate-spin"
+                  />
+                </div>
+              ) : data?.data && data.data.length > 0 ? (
+                <>
+                  <div className="max-h-[300px] overflow-y-auto">
+                    {data.data.map((bouquet) => (
+                      <Link
+                        key={bouquet.id}
+                        href={`/shop/bouquet/${bouquet.id}`}
+                        className="border-grayscale-100 hover:bg-grayscale-50 flex items-center justify-between border-b px-4 py-3 transition-colors"
+                        onClick={() => {
+                          setShowSearchbar(false);
+                          setSearch("");
+                        }}
+                      >
+                        <span className="text-primary truncate font-medium">
+                          {bouquet.name}
+                        </span>
+                        <span className="text-danger-500 text-sm">
+                          {priceFormatter(Number(bouquet.price))}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                  <Link
+                    href={`/shop?search=${encodeURIComponent(search)}`}
+                    className="bg-grayscale-50 text-danger-500 hover:bg-grayscale-100 block px-4 py-3 text-center text-sm font-medium"
+                    onClick={() => {
+                      setShowSearchbar(false);
+                      setSearch("");
+                    }}
+                  >
+                    Show more...
+                  </Link>
+                </>
+              ) : (
+                <div className="text-grayscale-600 p-4 text-center">
+                  No results found
+                </div>
+              )}
+            </div>
           )}
-          placeholder="Search Bouquet"
-        />
+        </div>
         <Button
           type={"submit"}
           onClick={(e) => {

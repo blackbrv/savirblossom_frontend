@@ -28,7 +28,7 @@ export const toast = {
     let message: string | undefined;
 
     if (error instanceof APIError) {
-      title = error.body?.message || fallbackMessage;
+      title = error.body?.message || error.message || fallbackMessage;
       const fieldErrors = error.body?.errors;
       if (fieldErrors) {
         message = Object.entries(fieldErrors)

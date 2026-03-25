@@ -73,7 +73,7 @@ export async function authApi<T>(
   const token = getAuthToken();
 
   if (!token) {
-    throw new APIError("Unauthorized", 401);
+    throw new APIError("OOPS! Sorry You are Unauthorized", 401);
   }
 
   const headers = new Headers(options?.headers);
