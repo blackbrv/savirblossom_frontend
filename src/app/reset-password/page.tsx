@@ -7,6 +7,7 @@ import { Suspense, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { usePasswordReset, usePasswordConfirm } from "@/services/auth";
 
 interface EmailFormData {
@@ -150,15 +151,13 @@ function PasswordResetForm({ token, email }: { token: string; email: string }) {
             },
           }}
           render={({ field }) => (
-            <Input
+            <PasswordInput
               {...field}
-              type="password"
               placeholder="Enter your new password"
               onChange={field.onChange}
               onBlur={field.onBlur}
               value={field.value ?? ""}
               disabled={isSubmitting}
-              className="focus:ring-danger-500 w-full rounded-md bg-gray-100 outline-none focus:ring-2"
             />
           )}
         />
@@ -177,15 +176,13 @@ function PasswordResetForm({ token, email }: { token: string; email: string }) {
             validate: (value) => value === password || "Passwords do not match",
           }}
           render={({ field }) => (
-            <Input
+            <PasswordInput
               {...field}
-              type="password"
               placeholder="Confirm your new password"
               onChange={field.onChange}
               onBlur={field.onBlur}
               value={field.value ?? ""}
               disabled={isSubmitting}
-              className="focus:ring-danger-500 w-full rounded-md bg-gray-100 outline-none focus:ring-2"
             />
           )}
         />
