@@ -1,10 +1,13 @@
 "use client";
 
+import { Bouquet } from "@/types";
 import React from "react";
 
 type ShopSectionProviderProps = {
-  selectedFilter: string;
+  selectedFilter?: number;
   currentPage: number;
+  bouquetList?: Bouquet[];
+  isBouquetLoading?: boolean;
 };
 
 const ShopSectionProvider =

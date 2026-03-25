@@ -126,3 +126,69 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+/* Toast Animations */
+@keyframes animate-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes animate-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-from-top-full {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-out-to-right-full {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fade-out-80 {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.animate-in {
+  animation: animate-in 100ms ease-out;
+}
+
+.animate-out {
+  animation: animate-out 100ms ease-in;
+}
+
+.slide-in-from-top-full {
+  animation: slide-in-from-top-full 100ms ease-out;
+}
+
+.slide-out-to-right-full {
+  animation: slide-out-to-right-full 100ms ease-in;
+}
+
+.fade-out-80 {
+  animation: fade-out-80 200ms ease-out;
+}

@@ -4,62 +4,80 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 interface PaginationProps {
-  pages?: number;
+  lastPage?: number;
   onPageChange?: (pageToGo: number) => void;
-  onNext?: (e: React.MouseEvent<HTMLButtonElement>) => void; //Next callback
-  onPrev?: (e: React.MouseEvent<HTMLButtonElement>) => void; //Previous callback
-  onNumber?: (e: React.MouseEvent<HTMLButtonElement>, pageToGo: number) => void; //Number callback
+  onNext?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onPrev?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onNumber?: (e: React.MouseEvent<HTMLButtonElement>, pageToGo: number) => void;
   currentPage?: number;
 }
 
 export default function Pagination({
-  pages = 4,
+  lastPage = 1,
   currentPage = 1,
   onPageChange,
   onNext,
   onPrev,
   onNumber,
 }: PaginationProps) {
-  const pageInRange = React.useMemo(() => {
-    if (pages <= 4) return Array.from({ length: pages }, (_, i) => i + 1);
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === lastPage;
 
-    return [1, 2, 3, "...", pages];
-  }, [pages]);
+  const pageInRange = React.useMemo(() => {
+    if (lastPage <= 5) {
+      return Array.from({ length: lastPage }, (_, i) => i + 1);
+    }
+
+    if (currentPage <= 3) {
+      return [1, 2, 3, 4, "...", lastPage];
+    }
+
+    if (currentPage >= lastPage - 2) {
+      return [1, "...", lastPage - 3, lastPage - 2, lastPage - 1, lastPage];
+    }
+
+    return [
+      1,
+      "...",
+      currentPage - 1,
+      currentPage,
+      currentPage + 1,
+      "...",
+      lastPage,
+    ];
+  }, [lastPage, currentPage]);
 
   const handlePrevious = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      if (currentPage !== 1 && onPageChange) onPageChange?.(currentPage - 1);
-
-      if (!onPrev) return;
-
-      onPrev(e);
+      if (!isFirstPage && onPageChange) {
+        onPageChange(currentPage - 1);
+      }
+      onPrev?.(e);
     },
-    [currentPage, onPageChange, onPrev],
+    [currentPage, isFirstPage, onPageChange, onPrev],
   );
 
   const handleNext = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      if (currentPage !== pages && onPageChange)
-        onPageChange?.(currentPage + 1);
-
-      if (!onNext) return;
-
-      onNext(e);
+      if (!isLastPage && onPageChange) {
+        onPageChange(currentPage + 1);
+      }
+      onNext?.(e);
     },
-    [onPageChange, currentPage, pages, onNext],
+    [currentPage, isLastPage, onPageChange, onNext],
   );
 
   const handleNumbers = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>, pageToGo: number) => {
       e.preventDefault();
-      if (onPageChange) onPageChange(pageToGo);
-      if (!onNumber) return;
-
-      onNumber(e, pageToGo);
+      if (pageToGo !== currentPage && onPageChange) {
+        onPageChange(pageToGo);
+      }
+      onNumber?.(e, pageToGo);
     },
-    [onPageChange, onNumber],
+    [currentPage, onPageChange, onNumber],
   );
 
   return (
@@ -70,8 +88,14 @@ export default function Pagination({
     >
       <Button
         onClick={handlePrevious}
+        disabled={isFirstPage}
         size={"icon"}
-        className="border-grayscale-400 hover:bg-danger-500 border bg-white hover:text-white"
+        className={cn(
+          "border-grayscale-400 border bg-white hover:text-white",
+          isFirstPage
+            ? "cursor-not-allowed opacity-50 hover:bg-white hover:text-black"
+            : "hover:bg-danger-500 hover:border-danger-500",
+        )}
       >
         <ArrowLeft className="h-3 w-3" />
       </Button>
@@ -83,25 +107,33 @@ export default function Pagination({
             </span>
           );
         }
+        const isActive = currentPage === range;
         return (
           <Button
-            onClick={(e) => handleNumbers?.(e, index + 1)}
-            key={index}
+            onClick={(e) => handleNumbers(e, range as number)}
+            key={`page-${range}`}
             size={"icon"}
             className={cn(
-              "border-grayscale-400 hover:bg-danger-500 border bg-white hover:text-white",
-              currentPage === index + 1 &&
-                "bg-danger-500 border-danger-500 text-white",
+              "border-grayscale-400 border bg-white",
+              isActive
+                ? "bg-danger-500 border-danger-500 hover:bg-danger-500 text-white"
+                : "hover:bg-danger-500 hover:border-danger-500 hover:text-white",
             )}
           >
-            <span>{index + 1}</span>
+            <span>{range}</span>
           </Button>
         );
       })}
       <Button
         onClick={handleNext}
+        disabled={isLastPage}
         size={"icon"}
-        className="border-grayscale-400 hover:bg-danger-500 border bg-white hover:text-white"
+        className={cn(
+          "border-grayscale-400 border bg-white hover:text-white",
+          isLastPage
+            ? "cursor-not-allowed opacity-50 hover:bg-white hover:text-black"
+            : "hover:bg-danger-500 hover:border-danger-500",
+        )}
       >
         <ArrowRight className="h-3 w-3" />
       </Button>

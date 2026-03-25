@@ -4,13 +4,15 @@ import { listPathName, NavbarListItem } from "@/lib/utils/constants";
 import SavirBlossomLogo from "@/assets/savir-blossom-logo.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, ShoppingCart, UserRound } from "lucide-react";
+import { Search, ShoppingCart } from "lucide-react";
 import React, { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 import useScrollListener from "@/lib/utils/useScrollListener";
 import { Input } from "./input";
 import { Button } from "./button";
 import { usePathname } from "next/navigation";
+import { useCartContext } from "@/contexts/CartContext";
+import { UserProfileDropdown } from "./UserProfileDropdown";
 
 type NavbarProps = {
   className?: string;
@@ -27,7 +29,7 @@ const UserActionButtonWrapper = ({
   return (
     <button
       className={cn(
-        "focus-visible:ring-danger-500 z-10 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-black/10 p-2 text-black transition-all duration-300 hover:cursor-pointer hover:bg-black hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+        "focus-visible:ring-danger-500 relative z-10 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-black/10 p-2 text-black transition-all duration-300 hover:cursor-pointer hover:bg-black hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
         className,
       )}
       {...rest}
@@ -71,7 +73,11 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
         <Search size={20} />
       </UserActionButtonWrapper>
 
-      <div
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
         className={cn(
           "flex items-center gap-2 transition-all duration-300 ease-in-out",
           !showSearchbar && "max-w-0 opacity-0",
@@ -91,6 +97,7 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
           placeholder="Search Bouquet"
         />
         <Button
+          type={"submit"}
           onClick={(e) => {
             e.preventDefault();
             onSearchClick?.(search);
@@ -102,7 +109,7 @@ const SearchBar = ({ isScroll, onSearchClick }: SearchbarProps) => {
         >
           Search
         </Button>
-      </div>
+      </form>
     </div>
   );
 };
@@ -111,6 +118,7 @@ export default function Navbar({ className }: NavbarProps) {
   const pathName = usePathname();
   const shouldInverted = listPathName.includes(pathName.replace("/", ""));
   const { isScroll } = useScrollListener();
+  const { itemCount } = useCartContext();
 
   return (
     <nav
@@ -168,25 +176,21 @@ export default function Navbar({ className }: NavbarProps) {
           onSearchClick={(val) => console.log(val)}
         />
 
-        <UserActionButtonWrapper
-          onClick={() => console.log("Go to Sopping page")}
-          className={cn(
-            (isScroll || shouldInverted) &&
-              "hover:bg-danger-500 bg-white/50 text-white",
-          )}
-        >
-          <ShoppingCart size={20} />
-        </UserActionButtonWrapper>
+        <Link href="/cart">
+          <UserActionButtonWrapper
+            className={cn(
+              (isScroll || shouldInverted) &&
+                "hover:bg-danger-500 bg-white/50 text-white",
+            )}
+          >
+            <ShoppingCart size={20} />
+            <span className="bg-danger-500 absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-xs font-medium text-white">
+              {itemCount > 99 ? "99+" : itemCount}
+            </span>
+          </UserActionButtonWrapper>
+        </Link>
 
-        <UserActionButtonWrapper
-          onClick={() => console.log("User Action to login or regis")}
-          className={cn(
-            (isScroll || shouldInverted) &&
-              "hover:bg-danger-500 bg-white/50 text-white",
-          )}
-        >
-          <UserRound size={20} />
-        </UserActionButtonWrapper>
+        <UserProfileDropdown isScroll={isScroll || shouldInverted} />
       </div>
     </nav>
   );

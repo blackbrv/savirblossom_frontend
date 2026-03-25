@@ -25,3 +25,33 @@ export const priceFormatter = (
 
   return finalValue;
 };
+
+interface ScrollToTopOptions {
+  targetY?: number;
+  behavior?: ScrollBehavior;
+  tolerance?: number;
+  onComplete?: () => void;
+}
+
+export function scrollToTop({
+  targetY = 0,
+  behavior = "smooth",
+  tolerance = 5,
+  onComplete,
+}: ScrollToTopOptions = {}) {
+  window.scrollTo({ top: targetY, behavior });
+
+  if (onComplete) {
+    const waitForScrollToFinish = () => {
+      const currentY = window.pageYOffset;
+
+      if (Math.abs(currentY - targetY) <= tolerance) {
+        onComplete();
+      } else {
+        requestAnimationFrame(waitForScrollToFinish);
+      }
+    };
+
+    requestAnimationFrame(waitForScrollToFinish);
+  }
+}

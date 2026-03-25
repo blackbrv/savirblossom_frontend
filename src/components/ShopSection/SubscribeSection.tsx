@@ -1,3 +1,5 @@
+"use client";
+
 import SubscribeBg from "@/assets/subscribe-rose-bg.png";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
@@ -40,7 +42,11 @@ export default function SubscribeSection({
           GET 50 % OFF BY SUBSCRIBE <br /> TO OUR NEWSLETTER
         </h3>
 
-        <div
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
           className="relative flex items-center gap-2 rounded-lg border border-white/20 p-2 focus-within:border-white"
           data-aos-easing="ease-in-out-back"
           data-aos="fade-up"
@@ -51,10 +57,13 @@ export default function SubscribeSection({
             className="h-max max-w-[200px] border-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
             placeholder="Your Email .."
           />
-          <Button className="text-danger-500 hover:bg-danger-500 desktop-tablet__body-medium__medium bg-white !font-medium hover:text-white">
+          <Button
+            type="submit"
+            className="text-danger-500 hover:bg-danger-500 desktop-tablet__body-medium__medium bg-white !font-medium hover:text-white"
+          >
             Subscribe
           </Button>
-        </div>
+        </form>
       </div>
     </section>
   );
