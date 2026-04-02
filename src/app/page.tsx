@@ -11,15 +11,13 @@ import GalleryLayout04 from "@/assets/gallery-layout-04.png";
 
 import { Button } from "@/components/ui/button";
 import {
-  BouquetList,
   HomeGridContent,
   LatestBlogs,
-  ListShopFilter,
   OurSupports,
   WhatOurCustomerSay,
 } from "@/lib/utils/constants";
-import React from "react";
-import { cn } from "@/lib/utils";
+import React, { useEffect } from "react";
+import { cn, priceFormatter } from "@/lib/utils";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import { MoveRight } from "lucide-react";
@@ -30,9 +28,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Star } from "phosphor-react";
+import { Star, Spinner } from "phosphor-react";
 import BlogsCard from "@/components/BlogsCard";
 import SubscribeSection from "@/components/ShopSection/SubscribeSection";
+import { useCategories, useBouquets } from "@/services/bouquet";
+import { useAddToCart } from "@/services/cart";
+import { useCartContext } from "@/contexts/CartContext";
 
 const ImageWithDetail = ({
   image,
@@ -90,7 +91,23 @@ const ImageWithDetail = ({
 };
 
 export default function Page() {
-  const [filterState, setFilterState] = React.useState("new_arrival");
+  const [selectedCategory, setSelectedCategory] = React.useState<
+    number | undefined
+  >();
+
+  const { data: categoriesData } = useCategories();
+  const { data: bouquetData, isLoading: isBouquetLoading } = useBouquets({
+    categoryId: selectedCategory,
+    perPage: 6,
+  });
+  const addToCartMutation = useAddToCart();
+  const { items } = useCartContext();
+
+  useEffect(() => {
+    if (categoriesData?.data?.[0]) {
+      setSelectedCategory(categoriesData.data[0].id);
+    }
+  }, [categoriesData]);
 
   return (
     <main className="container mx-auto flex min-h-screen w-full flex-col items-center gap-2">
@@ -219,43 +236,71 @@ export default function Page() {
           data-aos-easing="ease-in-out-back"
           data-aos="fade-right"
         >
-          {ListShopFilter.map((filter, index) => (
+          {categoriesData?.data.map((category) => (
             <Button
-              key={index}
+              key={category.id}
               className={cn(
                 "border-grayscale-400 hover:bg-danger-500 hover:border-danger-500 rounded-full border bg-white transition-all duration-300 hover:text-white",
-                filterState === filter.value &&
+                selectedCategory === category.id &&
                   "bg-danger-500 hover:text-primary border-danger-500 hover:border-grayscale-400 text-white hover:bg-white",
               )}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                setFilterState(filter.value);
+                setSelectedCategory(category.id);
               }}
             >
-              {filter.title}
+              {category.name}
             </Button>
           ))}
         </div>
 
         <div className="grid grid-cols-3 items-center justify-center gap-4">
-          {BouquetList.map((bouquet, index) => (
-            <ProductCard
-              data-aos-delay={50 * (index + 1)}
-              data-aos-easing="ease-in-out-back"
-              data-aos="fade-in"
-              title={bouquet.product_name}
-              price={`${bouquet.currency} ${bouquet.price}`}
-              isNewArrival={bouquet.is_new_arrival}
-              key={index}
-              image={bouquet.image}
-              onCartClick={(e) => {
-                e.preventDefault();
-                console.log("item added to cart");
-              }}
-            />
-          ))}
+          {isBouquetLoading ? (
+            <div className="col-span-full flex h-[400px] items-center justify-center">
+              <Spinner size={48} className="text-grayscale-400 animate-spin" />
+            </div>
+          ) : (
+            bouquetData?.data.map((item, index) => {
+              const isOnCart = items.some(
+                (cartItem) => cartItem.bouquet_id === item.id,
+              );
+              return (
+                <ProductCard
+                  data-aos-delay={50 * (index + 1)}
+                  data-aos-easing="ease-in-out-back"
+                  data-aos="fade-in"
+                  title={item.name}
+                  price={priceFormatter(Number(item.price))}
+                  isNewArrival={item.category?.name
+                    .toLowerCase()
+                    .includes("new")}
+                  key={item.id}
+                  image={item.galleries?.[0]?.src || ""}
+                  isOnCart={isOnCart}
+                  onCartClick={(e) => {
+                    e.preventDefault();
+                    addToCartMutation.mutate({
+                      bouquet_id: item.id,
+                      quantity: 1,
+                    });
+                  }}
+                />
+              );
+            })
+          )}
         </div>
+
+        {!isBouquetLoading &&
+          bouquetData?.data &&
+          bouquetData.data.length > 0 && (
+            <Link href="/shop">
+              <Button variant="outline" className="mt-4">
+                View All
+                <MoveRight size={16} />
+              </Button>
+            </Link>
+          )}
       </section>
 
       <SubscribeSection />
