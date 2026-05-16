@@ -31,24 +31,24 @@ The frontend communicates with a **Laravel REST API backend** via TanStack Query
 
 ## Features
 
-|                                                                                                                |                                                                                                                |                                                                                                            |
-| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **🛍️ Product Catalog** — Dynamic bouquet listing with category filtering, pagination, and new-arrival badges   | **🛒 Shopping Cart** — Optimistic UI updates, quantity controls, persistent state across sessions              | **🔐 Auth System** — JWT with httpOnly cookies, login/register/password-reset, Google OAuth ready          |
-| **📦 Checkout Flow** — Auth-guarded checkout with shipping form validation, order summary, and API integration | **🖼️ Media Gallery** — Visual grid layout with hover animations, product showcase, and brand photography      | **🎨 Modern UI** — 48+ shadcn/ui Radix primitives, custom Tailwind theme, AOS scroll animations            |
-| **📱 Responsive Design** — Mobile-first layout, embla carousel for testimonials, adaptive typography system    | **🔔 Toast Notifications** — Radix-based toast system with success/error helpers at the service layer          | **⬇️ Newsletter CTA** — Prominent subscribe section with promotional banner (API-ready)                    |
+|                                                                                                                |                                                                                                          |                                                                                                   |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **🛍️ Product Catalog** — Dynamic bouquet listing with category filtering, pagination, and new-arrival badges   | **🛒 Shopping Cart** — Optimistic UI updates, quantity controls, persistent state across sessions        | **🔐 Auth System** — JWT with httpOnly cookies, login/register/password-reset, Google OAuth ready |
+| **📦 Checkout Flow** — Auth-guarded checkout with shipping form validation, order summary, and API integration | **🖼️ Media Gallery** — Visual grid layout with hover animations, product showcase, and brand photography | **🎨 Modern UI** — 48+ shadcn/ui Radix primitives, custom Tailwind theme, AOS scroll animations   |
+| **📱 Responsive Design** — Mobile-first layout, embla carousel for testimonials, adaptive typography system    | **🔔 Toast Notifications** — Radix-based toast system with success/error helpers at the service layer    | **⬇️ Newsletter CTA** — Prominent subscribe section with promotional banner (API-ready)           |
 
 ---
 
 ## Tech Stack
 
-| Frontend                                     | Infrastructure                        |
-| -------------------------------------------- | ------------------------------------- |
-| **Next.js 15** (App Router)                  | **TanStack Query 5** (server state)   |
-| **TypeScript** (strict mode)                 | **React Hook Form** (form validation) |
-| **Tailwind CSS 4** (CSS-first config)        | **Cookie-based JWT auth**             |
-| **shadcn/ui** (48 Radix-based components)    | **Google OAuth** (redirect flow)      |
-| **Phosphor React** + **Lucide React**        | **AOS** (scroll animations)           |
-| **Class Variance Authority** (component variants) | **Embla Carousel** (touch carousel) |
+| Frontend                                          | Infrastructure                        |
+| ------------------------------------------------- | ------------------------------------- |
+| **Next.js 15** (App Router)                       | **TanStack Query 5** (server state)   |
+| **TypeScript** (strict mode)                      | **React Hook Form** (form validation) |
+| **Tailwind CSS 4** (CSS-first config)             | **Cookie-based JWT auth**             |
+| **shadcn/ui** (48 Radix-based components)         | **Google OAuth** (redirect flow)      |
+| **Phosphor React** + **Lucide React**             | **AOS** (scroll animations)           |
+| **Class Variance Authority** (component variants) | **Embla Carousel** (touch carousel)   |
 
 ---
 
@@ -128,9 +128,9 @@ npm run start
 
 ## Environment
 
-| Variable               | Description                              | Default                    |
-| ---------------------- | ---------------------------------------- | -------------------------- |
-| `NEXT_PUBLIC_API_URL`  | Base URL of the Laravel backend API      | `http://localhost:8000`    |
+| Variable              | Description                         | Default                 |
+| --------------------- | ----------------------------------- | ----------------------- |
+| `NEXT_PUBLIC_API_URL` | Base URL of the Laravel backend API | `http://localhost:8000` |
 
 ---
 
@@ -163,16 +163,6 @@ src/
 ├── types/               # TypeScript interfaces
 └── assets/              # Static images
 ```
-
----
-
-## Roadmap
-
-- **Admin Dashboard** — Analytics, order management, user controls
-- **Customer Management** — Profiles, order history, address book
-- **Newsletter Integration** — Subscriber management with email campaigns
-- **Promo Engine** — Discount codes, seasonal campaigns, bundle pricing
-- **CMS Page Builder** — Dynamic landing pages and content blocks
 
 ---
 
